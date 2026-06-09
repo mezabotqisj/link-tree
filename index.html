@@ -190,6 +190,43 @@
         .link-item:nth-child(4) { animation-delay: 0.4s; }
         .link-item:nth-child(5) { animation-delay: 0.5s; }
         
+        /* Banner */
+        .top-banner {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 9999;
+            background: linear-gradient(90deg, #6a11cb, #2575fc, #6a11cb);
+            background-size: 200% 100%;
+            animation: bannerSlide 4s linear infinite, fadeIn 0.5s ease forwards;
+            color: white;
+            text-align: center;
+            padding: 12px 20px;
+            font-size: 20px;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            box-shadow: 0 3px 15px rgba(0,0,0,0.3);
+            line-height: 1.5;
+        }
+
+        @keyframes bannerSlide {
+            0% { background-position: 0% 50%; }
+            100% { background-position: 200% 50%; }
+        }
+
+        .top-banner .banner-icon {
+            margin-right: 8px;
+        }
+
+        .top-banner .banner-icon-right {
+            margin-left: 8px;
+        }
+
+        body {
+            padding-top: 48px;
+        }
+
         /* Responsif */
         @media (max-width: 600px) {
             .container {
@@ -217,6 +254,11 @@
     </style>
 </head>
 <body>
+    <!-- ============================================================ -->
+    <!-- BANNER CONFIG — Ubah teks di sini sesuai kebutuhan          -->
+    <!-- ============================================================ -->
+    <div class="top-banner" id="topBanner"></div>
+
     <div class="container">
         <div class="card">
             <img src="3.png" class="profile-img" alt="Source Crocs Profile">
@@ -259,8 +301,8 @@
                         <i class="fas fa-shopping-bag"></i>
                     </div>
                     <div class="link-text">
-                        <div class="link-title">Shopee</div>
-                        <div class="link-description">Akun Shopee source.crocs X source.shoes</div>
+                        <div class="link-title">Shopee (UNDER MAINTANCE)</div>
+                        <div class="link-description">Akun Kita tutup karena pajak shopee sekarang tinggi</div>
                     </div>
                 </a>
             </div>
@@ -276,6 +318,35 @@
         </div>
     </div>
     
+    <script>
+        // ============================================================
+        // BANNER CONFIG — UBAH DI SINI
+        // Setiap item dalam array = satu baris teks banner
+        // Bisa 1 baris atau lebih, pisahkan dengan koma
+        // Contoh ikon Font Awesome: ✅ ⚡ 🔥 📦 atau pakai teks biasa
+        // ============================================================
+        const BANNER_LINES = [
+            "⚡ SEKARANG HANYA MENERIMA PEMESANAN PRE-ORDER",
+            " Shopee sudah tidak tersedia lagi · WA kami untuk info lebih lanjut"
+        ];
+
+        // Warna teks banner (opsional, default: putih)
+        const BANNER_TEXT_COLOR = "#ffffff";
+
+        // ============================================================
+        // Jangan ubah kode di bawah ini
+        // ============================================================
+        const banner = document.getElementById('topBanner');
+        banner.style.color = BANNER_TEXT_COLOR;
+        banner.innerHTML = BANNER_LINES.map(line => `<div>${line}</div>`).join('');
+
+        // Sesuaikan padding-top body dengan tinggi banner
+        document.addEventListener('DOMContentLoaded', function () {
+            const bannerHeight = banner.offsetHeight;
+            document.body.style.paddingTop = bannerHeight + 'px';
+        });
+    </script>
+
     <script>
         // Menampilkan tanggal terkini
         const currentDateElement = document.getElementById('currentDate');
