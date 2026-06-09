@@ -203,7 +203,7 @@
             color: white;
             text-align: center;
             padding: 12px 20px;
-            font-size: 16px;
+            font-size: 14px;
             font-weight: 600;
             letter-spacing: 0.5px;
             box-shadow: 0 3px 15px rgba(0,0,0,0.3);
@@ -225,6 +225,157 @@
 
         body {
             padding-top: 48px;
+        }
+
+        /* Tombol About */
+        .about-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            width: 100%;
+            padding: 13px 20px;
+            margin-top: 5px;
+            background: transparent;
+            border: 2px dashed rgba(106,17,203,0.35);
+            border-radius: 15px;
+            color: #6a11cb;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+
+        .about-btn:hover {
+            background: rgba(106,17,203,0.06);
+            border-color: #6a11cb;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 18px rgba(106,17,203,0.12);
+        }
+
+        .about-btn i { font-size: 16px; }
+
+        /* ── Halaman About ── */
+        #aboutPage {
+            display: none;
+            width: 100%;
+            max-width: 500px;
+            margin: 20px auto;
+            padding: 20px;
+            animation: fadeIn 0.4s ease forwards;
+        }
+
+        .about-card {
+            background: rgba(255,255,255,0.97);
+            border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+            padding: 35px 30px;
+            text-align: center;
+        }
+
+        .about-card .about-logo {
+            width: 90px;
+            height: 90px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid #6a11cb;
+            margin-bottom: 18px;
+        }
+
+        .about-card h2 {
+            color: #2c3e50;
+            font-size: 22px;
+            margin-bottom: 6px;
+        }
+
+        .about-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, #6a11cb, #2575fc);
+            color: white;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            padding: 4px 12px;
+            border-radius: 20px;
+            margin-bottom: 22px;
+        }
+
+        .about-divider {
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #e0d7f5, transparent);
+            margin: 20px 0;
+            border: none;
+        }
+
+        .about-section-title {
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            color: #6a11cb;
+            margin-bottom: 10px;
+            text-align: left;
+        }
+
+        .about-text {
+            color: #555;
+            font-size: 14.5px;
+            line-height: 1.75;
+            text-align: left;
+            margin-bottom: 16px;
+        }
+
+        .about-stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+            margin: 22px 0;
+        }
+
+        .stat-box {
+            background: #f8f5ff;
+            border-radius: 12px;
+            padding: 14px 10px;
+            text-align: center;
+        }
+
+        .stat-box .stat-num {
+            font-size: 22px;
+            font-weight: 800;
+            color: #6a11cb;
+            display: block;
+        }
+
+        .stat-box .stat-label {
+            font-size: 11px;
+            color: #888;
+            margin-top: 3px;
+        }
+
+        .back-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            width: 100%;
+            padding: 14px;
+            margin-top: 25px;
+            background: linear-gradient(135deg, #6a11cb, #2575fc);
+            color: white;
+            border: none;
+            border-radius: 15px;
+            font-size: 15px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 20px rgba(106,17,203,0.3);
+        }
+
+        .back-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 25px rgba(106,17,203,0.4);
         }
 
         /* Responsif */
@@ -305,6 +456,12 @@
                         <div class="link-description">Akun Kita tutup karena pajak shopee sekarang tinggi</div>
                     </div>
                 </a>
+                <!-- Tombol About -->
+                <button class="about-btn" onclick="showAbout()">
+                    <i class="fas fa-info-circle"></i>
+                    <span>About This Link-Tree</span>
+                    <i class="fas fa-chevron-right" style="font-size:12px; margin-left:auto; opacity:0.5;"></i>
+                </button>
             </div>
         </div>
         
@@ -317,7 +474,72 @@
             <p style="font-size: 12px; margin-top: 5px;">Halaman ini diperbarui terakhir: <span id="currentDate"></span></p>
         </div>
     </div>
-    
+
+    <!-- ============================================================ -->
+    <!-- HALAMAN ABOUT — Ubah konten di sini sesuai kebutuhan        -->
+    <!-- ============================================================ -->
+    <div id="aboutPage">
+        <div class="about-card">
+            <img src="3.png" class="about-logo" alt="Source Crocs Logo">
+            <h2>Source Crocs</h2>
+            <span class="about-badge">✦ This Page Is AUTHENTIC ✦</span>
+
+            <hr class="about-divider">
+
+            <!-- SEKSI 1: Tentang Kami -->
+            <p class="about-section-title"><i class="fas fa-store"></i> &nbsp;Tentang Kami</p>
+            <p class="about-text">
+                Source Crocs adalah toko yang menyediakan produk Crocs Original Riject,dengan harga terjangkau.
+                Kami beroperasi secara online melalui sistem Pre-Order untuk memastikan setiap produk yang kamu terima
+                adalah 100% original dan berkualitas tinggi.
+            </p>
+
+            <hr class="about-divider">
+
+            <!-- SEKSI 2: Statistik -->
+            <p class="about-section-title"><i class="fas fa-chart-bar"></i> &nbsp;Pencapaian Kami</p>
+            <div class="about-stats">
+                <div class="stat-box">
+                    <span class="stat-num">500+</span>
+                    <span class="stat-label">Pesanan</span>
+                </div>
+                <div class="stat-box">
+                    <span class="stat-num">5-10 Menit</span>
+                    <span class="stat-label">Respon Chat Kamu Di Terima</span>
+                </div>
+                <div class="stat-box">
+                    <span class="stat-num">100%</span>
+                    <span class="stat-label">Kemulusan Barang</span>
+                </div>
+            </div>
+
+            <hr class="about-divider">
+
+            <!-- SEKSI 3: Cara Pemesanan -->
+            <p class="about-section-title"><i class="fas fa-clipboard-list"></i> &nbsp;Cara Pemesanan</p>
+            <p class="about-text">
+                1. Hubungi kami via WhatsApp<br>
+                2. Pilih model & ukuran yang diinginkan<br>
+                3. Lakukan pembayaran DP/Full<br>
+                4. Tunggu konfirmasi & estimasi pengiriman
+            </p>
+
+            <hr class="about-divider">
+
+            <!-- SEKSI 4: Complain -->
+            <p class="about-section-title"><i class="fas fa-headset"></i> &nbsp;Complain?</p>
+            <p class="about-text" style="text-align:center;">
+                📧 Email: <strong>customerhelpsourcecrocs@gmail.com</strong>
+            </p>
+
+            <!-- Tombol Back -->
+            <button class="back-btn" onclick="showHome()">
+                <i class="fas fa-arrow-left"></i>
+                Kembali ke Halaman Utama
+            </button>
+        </div>
+    </div>
+
     <script>
         // ============================================================
         // BANNER CONFIG — UBAH DI SINI
@@ -327,7 +549,7 @@
         // ============================================================
         const BANNER_LINES = [
             "⚡ SEKARANG HANYA MENERIMA PEMESANAN PRE-ORDER",
-            " Shopee sudah tidak tersedia lagi · WA kami untuk info lebih lanjut"
+            "WA kami untuk info lebih lanjut"
         ];
 
         // Warna teks banner (opsional, default: putih)
@@ -348,6 +570,27 @@
     </script>
 
     <script>
+        // ── Navigasi Halaman ──
+        function showAbout() {
+            document.querySelector('.container').style.display = 'none';
+            const ap = document.getElementById('aboutPage');
+            ap.style.display = 'block';
+            ap.style.animation = 'none';
+            ap.offsetHeight; // reflow
+            ap.style.animation = 'fadeIn 0.4s ease forwards';
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function showHome() {
+            document.getElementById('aboutPage').style.display = 'none';
+            const c = document.querySelector('.container');
+            c.style.display = 'block';
+            c.style.animation = 'none';
+            c.offsetHeight;
+            c.style.animation = 'fadeIn 0.4s ease forwards';
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
         // Menampilkan tanggal terkini
         const currentDateElement = document.getElementById('currentDate');
         const now = new Date();
