@@ -738,27 +738,8 @@
             }
         });
 
-        // 3. Anti inspect element via console toString trick (tidak blokir main thread)
-        (function detectDevTools() {
-            let devtoolsOpen = false;
-            const trap = /./;
-            trap.toString = function() {
-                devtoolsOpen = true;
-                return '🔒';
-            };
-            setInterval(function() {
-                devtoolsOpen = false;
-                console.log('%c', trap);
-                if (devtoolsOpen) {
-                    document.body.innerHTML =
-                        '<div style="display:flex;flex-direction:column;align-items:center;justify-content:center;height:100vh;background:#6a11cb;color:white;font-family:sans-serif;text-align:center;padding:30px;">' +
-                        '<div style="font-size:60px;margin-bottom:20px;">🚫</div>' +
-                        '<h2 style="font-size:22px;margin-bottom:10px;">Akses Developer Tools Terdeteksi</h2>' +
-                        '<p style="opacity:0.8;font-size:14px;">Tutup DevTools untuk melanjutkan menggunakan halaman ini.</p>' +
-                        '</div>';
-                }
-            }, 1500);
-        })();
+        // Anti inspect element via devtools dihapus karena tidak reliable
+        // dan menyebabkan false positive di Chrome modern
 
         // 4. Notifikasi peringatan klik kanan / shortcut
         function showSecurityAlert() {
@@ -775,7 +756,7 @@
                 animation: fadeIn 0.3s ease both;
                 white-space: nowrap;
             `;
-            alert.innerHTML = '🔒 Oops You Cant! [secured by Engine 1.0]';
+            alert.innerHTML = '🔒 Oops You Cant! [secured]';
             document.body.appendChild(alert);
             setTimeout(() => { if (alert) alert.remove(); }, 2500);
         }
