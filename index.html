@@ -11,16 +11,29 @@
             padding: 0;
             box-sizing: border-box;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            /* Proteksi: teks tidak bisa diseleksi */
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
         }
         
         body {
-            background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+            background: linear-gradient(135deg, #6a11cb, #2575fc, #a855f7, #3b82f6, #6a11cb);
+            background-size: 300% 300%;
+            animation: gradientShift 10s ease infinite;
             color: #333;
             min-height: 100vh;
             display: flex;
             flex-direction: column;
             align-items: center;
             padding: 20px;
+        }
+
+        @keyframes gradientShift {
+            0%   { background-position: 0% 50%; }
+            50%  { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
         }
         
         .container {
@@ -94,6 +107,29 @@
             box-shadow: 0 10px 20px rgba(238, 77, 45, 0.2);
         }
         
+        /* Ripple effect */
+        .link-item, .about-btn, .back-btn {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .ripple {
+            position: absolute;
+            border-radius: 50%;
+            transform: scale(0);
+            animation: rippleAnim 0.55s linear;
+            background: rgba(106, 17, 203, 0.18);
+            pointer-events: none;
+        }
+
+        .back-btn .ripple {
+            background: rgba(255, 255, 255, 0.3);
+        }
+
+        @keyframes rippleAnim {
+            to { transform: scale(4); opacity: 0; }
+        }
+
         .link-icon {
             width: 40px;
             height: 40px;
@@ -181,7 +217,7 @@
         }
         
         .card, .link-item, .social-icon {
-            animation: fadeIn 0.5s ease forwards;
+            animation: fadeIn 0.5s ease both; /* 'both' = tahan state awal & akhir */
         }
         
         .link-item:nth-child(1) { animation-delay: 0.1s; }
@@ -224,7 +260,7 @@
         }
 
         body {
-            padding-top: 48px;
+            padding-top: 60px; /* fallback; JS akan sesuaikan */
         }
 
         /* Tombol About */
@@ -330,28 +366,32 @@
         .about-stats {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: 12px;
+            gap: 10px;
             margin: 22px 0;
         }
 
         .stat-box {
             background: #f8f5ff;
             border-radius: 12px;
-            padding: 14px 10px;
+            padding: 12px 6px;
             text-align: center;
+            min-width: 0; /* cegah overflow dalam grid */
+            word-break: break-word;
         }
 
         .stat-box .stat-num {
-            font-size: 22px;
+            font-size: clamp(13px, 3.5vw, 22px);
             font-weight: 800;
             color: #6a11cb;
             display: block;
+            line-height: 1.3;
         }
 
         .stat-box .stat-label {
-            font-size: 11px;
+            font-size: clamp(9px, 2.5vw, 11px);
             color: #888;
             margin-top: 3px;
+            line-height: 1.3;
         }
 
         .back-btn {
@@ -385,7 +425,7 @@
             }
             
             .card {
-                padding: 25px 20px;
+                padding: 25px 15px;
             }
             
             .profile-img {
@@ -394,12 +434,32 @@
             }
             
             h1 {
-                font-size: 24px;
+                font-size: 22px;
             }
             
             .bio {
                 font-size: 15px;
                 padding: 0;
+            }
+
+            .link-title {
+                font-size: 14px;
+            }
+
+            .link-description {
+                font-size: 12px;
+            }
+
+            .about-card {
+                padding: 25px 15px;
+            }
+
+            /* Stat box fallback: stack jadi 1 kolom di layar sangat sempit */
+        }
+
+        @media (max-width: 360px) {
+            .about-stats {
+                grid-template-columns: 1fr;
             }
         }
     </style>
@@ -563,10 +623,14 @@
         banner.innerHTML = BANNER_LINES.map(line => `<div>${line}</div>`).join('');
 
         // Sesuaikan padding-top body dengan tinggi banner
-        document.addEventListener('DOMContentLoaded', function () {
+        function adjustBannerPadding() {
             const bannerHeight = banner.offsetHeight;
             document.body.style.paddingTop = bannerHeight + 'px';
-        });
+        }
+        // Jalankan langsung & saat resize (orientasi HP berubah)
+        adjustBannerPadding();
+        window.addEventListener('load', adjustBannerPadding);
+        window.addEventListener('resize', adjustBannerPadding);
     </script>
 
     <script>
@@ -631,6 +695,90 @@
                 document.body.style.opacity = '1';
             }, 100);
         });
+        // ── Ripple effect ──
+        function createRipple(e) {
+            const el = e.currentTarget;
+            const circle = document.createElement('span');
+            const diameter = Math.max(el.clientWidth, el.clientHeight);
+            const radius = diameter / 2;
+            const rect = el.getBoundingClientRect();
+            circle.style.width = circle.style.height = diameter + 'px';
+            circle.style.left = (e.clientX - rect.left - radius) + 'px';
+            circle.style.top  = (e.clientY - rect.top  - radius) + 'px';
+            circle.classList.add('ripple');
+            const existing = el.querySelector('.ripple');
+            if (existing) existing.remove();
+            el.appendChild(circle);
+            circle.addEventListener('animationend', () => circle.remove());
+        }
+
+        document.querySelectorAll('.link-item, .about-btn, .back-btn').forEach(el => {
+            el.addEventListener('click', createRipple);
+        });
+
+        // ══════════════════════════════════════════
+        // KEAMANAN HALAMAN
+        // ══════════════════════════════════════════
+
+        // 1. Anti klik kanan
+        document.addEventListener('contextmenu', function(e) {
+            e.preventDefault();
+            showSecurityAlert();
+        });
+
+        // 2. Anti keyboard shortcut (F12, Ctrl+Shift+I/J/C/U, Ctrl+U, Ctrl+S)
+        document.addEventListener('keydown', function(e) {
+            const blocked =
+                e.key === 'F12' ||
+                (e.ctrlKey && e.shiftKey && ['I','J','C','i','j','c'].includes(e.key)) ||
+                (e.ctrlKey && ['u','U','s','S'].includes(e.key));
+            if (blocked) {
+                e.preventDefault();
+                showSecurityAlert();
+            }
+        });
+
+        // 3. Anti inspect element via console toString trick (tidak blokir main thread)
+        (function detectDevTools() {
+            let devtoolsOpen = false;
+            const trap = /./;
+            trap.toString = function() {
+                devtoolsOpen = true;
+                return '🔒';
+            };
+            setInterval(function() {
+                devtoolsOpen = false;
+                console.log('%c', trap);
+                if (devtoolsOpen) {
+                    document.body.innerHTML =
+                        '<div style="display:flex;flex-direction:column;align-items:center;justify-content:center;height:100vh;background:#6a11cb;color:white;font-family:sans-serif;text-align:center;padding:30px;">' +
+                        '<div style="font-size:60px;margin-bottom:20px;">🚫</div>' +
+                        '<h2 style="font-size:22px;margin-bottom:10px;">Akses Developer Tools Terdeteksi</h2>' +
+                        '<p style="opacity:0.8;font-size:14px;">Tutup DevTools untuk melanjutkan menggunakan halaman ini.</p>' +
+                        '</div>';
+                }
+            }, 1500);
+        })();
+
+        // 4. Notifikasi peringatan klik kanan / shortcut
+        function showSecurityAlert() {
+            const existing = document.getElementById('secAlert');
+            if (existing) return;
+            const alert = document.createElement('div');
+            alert.id = 'secAlert';
+            alert.style.cssText = `
+                position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%);
+                background: rgba(30,10,60,0.92); color: white; padding: 12px 24px;
+                border-radius: 12px; font-size: 14px; font-weight: 600; z-index: 99999;
+                box-shadow: 0 8px 24px rgba(0,0,0,0.4); backdrop-filter: blur(8px);
+                border: 1px solid rgba(255,255,255,0.15);
+                animation: fadeIn 0.3s ease both;
+                white-space: nowrap;
+            `;
+            alert.innerHTML = '🔒 Oops You Cant! [secured by Engine 1.0]';
+            document.body.appendChild(alert);
+            setTimeout(() => { if (alert) alert.remove(); }, 2500);
+        }
     </script>
 </body>
 </html>
