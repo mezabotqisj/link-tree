@@ -242,6 +242,133 @@
 
         .link-item.shopee:hover .link-arrow { color: #ee4d2d; }
 
+        /* ── EVENT CARD ── */
+        .event-card {
+            display: flex;
+            align-items: center;
+            background: linear-gradient(135deg, #0ea5e9, #2563eb, #0284c7);
+            background-size: 200% 200%;
+            animation: eventBgShift 4s ease infinite;
+            border-radius: 18px;
+            padding: 16px 18px;
+            text-decoration: none;
+            color: white;
+            border: 1.5px solid rgba(255,255,255,0.25);
+            transition: all 0.25s ease;
+            box-shadow: 0 8px 24px rgba(14,165,233,0.5), 0 0 0 0 rgba(14,165,233,0);
+            position: relative;
+            overflow: hidden;
+        }
+
+        @keyframes eventBgShift {
+            0%,100% { background-position: 0% 50%; }
+            50%      { background-position: 100% 50%; }
+        }
+
+        .event-card::before {
+            content: '';
+            position: absolute;
+            top: -40px; right: -40px;
+            width: 120px; height: 120px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 50%;
+            pointer-events: none;
+        }
+
+        .event-card::after {
+            content: '';
+            position: absolute;
+            bottom: -30px; left: 20px;
+            width: 80px; height: 80px;
+            background: rgba(255,255,255,0.07);
+            border-radius: 50%;
+            pointer-events: none;
+        }
+
+        /* Petir animasi */
+        .bolt {
+            position: absolute;
+            font-size: 18px;
+            opacity: 0;
+            pointer-events: none;
+            animation: boltFlash 3s ease-in-out infinite;
+            filter: drop-shadow(0 0 6px #7dd3fc);
+        }
+
+        .bolt-1 { top: 6px;  right: 52px; animation-delay: 0s;    font-size: 16px; }
+        .bolt-2 { top: 4px;  right: 32px; animation-delay: 0.6s;  font-size: 12px; }
+        .bolt-3 { bottom: 6px; right: 44px; animation-delay: 1.2s; font-size: 14px; }
+
+        @keyframes boltFlash {
+            0%,100% { opacity: 0; transform: scale(0.7) translateY(0); }
+            10%,30% { opacity: 1; transform: scale(1) translateY(-3px); }
+            20%      { opacity: 0.4; }
+            40%      { opacity: 0; }
+        }
+
+        .event-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 14px 32px rgba(14,165,233,0.65), 0 0 20px rgba(14,165,233,0.3);
+            border-color: rgba(255,255,255,0.4);
+        }
+
+        .event-icon {
+            width: 48px; height: 48px;
+            background: rgba(255,255,255,0.15);
+            border-radius: 14px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 22px;
+            margin-right: 14px;
+            flex-shrink: 0;
+            border: 1px solid rgba(255,255,255,0.2);
+            animation: eventPulse 2.5s ease-in-out infinite;
+        }
+
+        @keyframes eventPulse {
+            0%,100% { box-shadow: 0 0 0 0 rgba(14,165,233,0.6); }
+            50%      { box-shadow: 0 0 0 8px rgba(14,165,233,0); }
+        }
+
+        .event-text { flex: 1; position: relative; z-index: 1; text-align: left; }
+
+        .event-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, #f59e0b, #ef4444);
+            color: white;
+            font-size: 9px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            padding: 2px 8px;
+            border-radius: 20px;
+            margin-bottom: 5px;
+        }
+
+        .event-title {
+            font-size: 15px;
+            font-weight: 800;
+            color: white;
+            line-height: 1.2;
+            margin-bottom: 3px;
+        }
+
+        .event-desc {
+            font-size: 12px;
+            color: rgba(255,255,255,0.65);
+        }
+
+        .event-arrow {
+            font-size: 14px;
+            color: rgba(255,255,255,0.5);
+            transition: transform 0.25s ease, color 0.25s ease;
+            position: relative; z-index: 1;
+        }
+
+        .event-card:hover .event-arrow {
+            color: white;
+            transform: translateX(4px);
+        }
+
         /* ── ABOUT BUTTON ── */
         .about-btn {
             display: flex;
@@ -560,6 +687,20 @@
                     </div>
                     <i class="fas fa-chevron-right link-arrow"></i>
                 </a>
+
+                <!-- Event Super Lucky Draw -->
+                <a href="https://mezabotsourcecrocs.github.io/super-lucky-draw/" class="event-card" target="_blank">
+                    <span class="bolt bolt-1">⚡</span>
+                    <span class="bolt bolt-2">⚡</span>
+                    <span class="bolt bolt-3">⚡</span>
+                    <div class="event-icon">🎰</div>
+                    <div class="event-text">
+                        <span class="event-badge">🔴 Live Event</span>
+                        <div class="event-title">Super Lucky Draw</div>
+                        <div class="event-desc">Spin &amp; menangkan hadiah spesial dari Source Crocs!</div>
+                    </div>
+                    <i class="fas fa-chevron-right event-arrow"></i>
+                </a>
             </div>
         </div>
 
@@ -630,7 +771,7 @@
             <p class="about-section-title"><i class="fas fa-code"></i> Tentang Website Ini</p>
             <div class="about-stats">
                 <div class="stat-box">
-                    <span class="stat-num">v1.7 [beta]</span>
+                    <span class="stat-num">v2.7</span>
                     <span class="stat-label">Versi</span>
                 </div>
                 <div class="stat-box">
