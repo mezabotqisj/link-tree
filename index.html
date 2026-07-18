@@ -73,7 +73,7 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            padding: 28px 16px 108px;
+            padding: 28px 16px 40px;
             position: relative;
             overflow-x: hidden;
         }
@@ -117,8 +117,8 @@
             will-change: transform;
         }
 
-        /* Aurora — slow drifting blurred orbs, "color breathing", with organic liquid distortion */
-        .aurora { position: fixed; inset: -15%; z-index: 0; pointer-events: none; filter: blur(70px) url(#liquidDistort); }
+        /* Aurora — slow drifting blurred orbs, "color breathing" */
+        .aurora { position: fixed; inset: -15%; z-index: 0; pointer-events: none; filter: blur(70px); }
         .aurora span {
             position: absolute;
             border-radius: 50%;
@@ -184,36 +184,6 @@
             50%      { transform: translateY(-5px); }
         }
         .profile-wrap { animation: floatY 5.5s ease-in-out infinite; }
-
-        /* ── Preloader — quick crystal reveal, gone before it can annoy anyone ── */
-        #preloader {
-            position: fixed; inset: 0;
-            z-index: 10000;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            gap: 14px;
-            background: var(--bg-gradient);
-            transition: opacity 0.5s ease, filter 0.5s ease;
-        }
-        #preloader.gone { opacity: 0; filter: blur(12px); pointer-events: none; }
-        .preloader-ring {
-            width: 46px; height: 46px;
-            border-radius: 50%;
-            border: 3px solid rgba(255,255,255,0.25);
-            border-top-color: rgba(255,255,255,0.9);
-            animation: spinRing 0.9s linear infinite;
-        }
-        .preloader-word {
-            font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Inter', sans-serif;
-            font-size: 13px; font-weight: 700; letter-spacing: 0.5px;
-            color: rgba(255,255,255,0.85);
-            animation: fadeUp 0.6s ease both;
-        }
-        @media (prefers-reduced-motion: reduce) {
-            .preloader-ring { animation-duration: 1.4s; }
-        }
 
         /* ── Dynamic Island banner ── */
         .top-banner {
@@ -286,12 +256,7 @@
             -webkit-backdrop-filter: blur(26px) saturate(180%);
             border: 1px solid var(--glass-border);
             border-radius: 28px;
-            box-shadow:
-                0 24px 60px var(--shadow-color),
-                inset 0 1px 1px var(--glass-highlight),
-                inset 0 -1px 14px rgba(255,255,255,0.05),
-                inset 0 0 0 1px rgba(255,255,255,0.05),
-                0 1px 0 rgba(255,255,255,0.08);
+            box-shadow: 0 20px 54px var(--shadow-color), inset 0 1px 1px var(--glass-highlight), inset 0 -1px 12px rgba(255,255,255,0.04);
             padding: 34px 24px 24px;
             text-align: center;
             margin-bottom: 14px;
@@ -869,75 +834,6 @@
         @keyframes toastIn { from { opacity: 0; transform: translateY(10px) scale(0.9); } to { opacity: 1; transform: translateY(0) scale(1); } }
         @keyframes toastOut { to { opacity: 0; transform: translateY(-8px) scale(0.95); } }
 
-        /* ── Floating Dock ── */
-        .dock {
-            position: fixed;
-            bottom: 16px; left: 50%;
-            transform: translate(-50%, 0);
-            z-index: 9997;
-            display: flex;
-            align-items: flex-end;
-            gap: 10px;
-            padding: 10px 14px;
-            background: var(--island-bg);
-            backdrop-filter: blur(24px) saturate(200%);
-            -webkit-backdrop-filter: blur(24px) saturate(200%);
-            border: 1px solid rgba(255,255,255,0.16);
-            border-radius: 26px;
-            box-shadow: 0 14px 36px rgba(0,0,0,0.35), inset 0 1px 1px rgba(255,255,255,0.14);
-            transition: transform 0.45s cubic-bezier(.22,1,.36,1), opacity 0.35s ease;
-        }
-        .dock.dock-hidden { transform: translate(-50%, 130%); opacity: 0; }
-
-        .dock-item {
-            width: 42px; height: 42px;
-            border-radius: 13px;
-            display: flex; align-items: center; justify-content: center;
-            font-size: 17px;
-            color: #fff;
-            text-decoration: none;
-            background: rgba(255,255,255,0.14);
-            border: 1px solid rgba(255,255,255,0.22);
-            cursor: pointer;
-            flex-shrink: 0;
-            transition: transform 0.3s cubic-bezier(.34,1.56,.64,1), background 0.2s;
-            transform-origin: bottom center;
-            font-family: inherit;
-            position: relative;
-        }
-        .dock-item.shopee-dot { background: rgba(255,140,100,0.22); }
-
-        @media (hover: hover) and (pointer: fine) {
-            .dock-item:hover { background: rgba(255,255,255,0.26); }
-        }
-        .dock-item:active { transform: scale(0.9) !important; }
-
-        .dock-item::after {
-            content: attr(data-label);
-            position: absolute;
-            bottom: 52px; left: 50%;
-            transform: translateX(-50%) translateY(4px);
-            background: var(--island-bg);
-            backdrop-filter: blur(14px);
-            border: 1px solid rgba(255,255,255,0.16);
-            padding: 4px 10px;
-            border-radius: 8px;
-            font-size: 10.5px; font-weight: 600;
-            white-space: nowrap;
-            color: #fff;
-            opacity: 0;
-            pointer-events: none;
-            transition: opacity 0.2s ease, transform 0.2s ease;
-        }
-        @media (hover: hover) and (pointer: fine) {
-            .dock-item:hover::after { opacity: 1; transform: translateX(-50%) translateY(0); }
-        }
-
-        @media (max-width: 400px) {
-            .dock { gap: 7px; padding: 8px 10px; }
-            .dock-item { width: 38px; height: 38px; font-size: 15px; border-radius: 11px; }
-        }
-
         /* ── Accessibility: visible focus ring everywhere ── */
         a:focus-visible, button:focus-visible {
             outline: 2px solid var(--electric);
@@ -954,7 +850,6 @@
             .card, .about-card { transform: none !important; }
             .profile-wrap.loading::after, .about-logo-wrap.loading::after { animation: none; }
             .img-fade { opacity: 1 !important; filter: none !important; }
-            .aurora { filter: blur(70px); }
         }
 
         /* Responsif */
@@ -969,24 +864,6 @@
     </style>
 </head>
 <body>
-
-    <!-- Liquid distortion filter — animated turbulence displaces the aurora orbs for a true refractive wobble -->
-    <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
-        <defs>
-            <filter id="liquidDistort" x="-20%" y="-20%" width="140%" height="140%">
-                <feTurbulence type="fractalNoise" baseFrequency="0.008 0.012" numOctaves="2" seed="7" result="noise">
-                    <animate attributeName="baseFrequency" dur="22s" values="0.008 0.012;0.014 0.018;0.008 0.012" repeatCount="indefinite" />
-                </feTurbulence>
-                <feDisplacementMap in="SourceGraphic" in2="noise" scale="34" xChannelSelector="R" yChannelSelector="G" />
-            </filter>
-        </defs>
-    </svg>
-
-    <!-- Preloader — brief crystal reveal before the page settles -->
-    <div id="preloader" aria-hidden="true">
-        <div class="preloader-ring"></div>
-        <span class="preloader-word">source.crocs</span>
-    </div>
 
     <canvas id="particleCanvas" aria-hidden="true"></canvas>
     <div class="aurora" aria-hidden="true"><span class="o1"></span><span class="o2"></span><span class="o3"></span><span class="o4"></span></div>
@@ -1156,17 +1033,6 @@
 
     <div class="toast-stack" id="toastStack" aria-live="polite"></div>
 
-    <!-- Floating Dock — quick-access shortcuts to the same links above -->
-    <nav class="dock" id="dock" aria-label="Akses cepat">
-        <a href="https://instagram.com/source.crocs_2nd" class="dock-item" target="_blank" rel="noopener" data-label="Instagram" data-toast="Membuka Instagram…" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
-        <a href="https://wa.me/62895342072060" class="dock-item" target="_blank" rel="noopener" data-label="WhatsApp" data-toast="Membuka WhatsApp…" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
-        <a href="https://tiktok.com/@source.crocs" class="dock-item" target="_blank" rel="noopener" data-label="TikTok" data-toast="Membuka TikTok…" aria-label="TikTok"><i class="fab fa-tiktok"></i></a>
-        <a href="https://shopee.co.id/source.crocs" class="dock-item shopee-dot" target="_blank" rel="noopener" data-label="Shopee" data-toast="Membuka Shopee…" aria-label="Shopee"><i class="fas fa-shopping-bag"></i></a>
-        <button type="button" class="dock-item" data-label="About" onclick="showAbout()" aria-label="Tentang">
-            <i class="fas fa-info-circle"></i>
-        </button>
-    </nav>
-
     <script>
         const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
         const canHover = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
@@ -1291,61 +1157,18 @@
         }
         observeReveals();
 
-        // ── Preloader — quick crystal reveal, then hand off to the normal body fade-in ──
+        // ── Fade in body ──
         document.body.style.opacity = '0';
-        const preloader = document.getElementById('preloader');
-        function dismissPreloader() {
-            preloader.classList.add('gone');
+        requestAnimationFrame(() => {
             document.body.style.transition = 'opacity 0.5s';
             document.body.style.opacity = '1';
-            setTimeout(() => preloader.remove(), 550);
-        }
-        setTimeout(dismissPreloader, reduceMotion ? 60 : 550);
-
-        // ── Sound design placeholders — wired up but silent by default; do not autoplay ──
-        const SOUND_ENABLED = false;
-        const sounds = { tap: null /* e.g. new Audio('tap.mp3') */, notify: null /* e.g. new Audio('notify.mp3') */ };
-        function playSound(key) {
-            if (!SOUND_ENABLED || !sounds[key]) return;
-            sounds[key].currentTime = 0;
-            sounds[key].play().catch(() => {});
-        }
-
-        // ── Floating Dock: magnify-on-approach + auto-hide while scrolling down ──
-        (function () {
-            const dock = document.getElementById('dock');
-            const items = dock.querySelectorAll('.dock-item');
-
-            if (canHover && !reduceMotion) {
-                dock.addEventListener('pointermove', (e) => {
-                    items.forEach(item => {
-                        const r = item.getBoundingClientRect();
-                        const cx = r.left + r.width / 2;
-                        const dist = Math.abs(e.clientX - cx);
-                        const scale = Math.max(1, 1.35 - dist / 160);
-                        item.style.transform = `scale(${scale.toFixed(2)})`;
-                    });
-                });
-                dock.addEventListener('pointerleave', () => {
-                    items.forEach(item => { item.style.transform = ''; });
-                });
-            }
-
-            let lastY = window.scrollY;
-            window.addEventListener('scroll', () => {
-                const y = window.scrollY;
-                if (y > lastY && y > 140) dock.classList.add('dock-hidden');
-                else dock.classList.remove('dock-hidden');
-                lastY = y;
-            }, { passive: true });
-        })();
+        });
 
         // ── Tactile feedback: ripple + icon pop on press, for every clickable glass surface ──
         (function () {
-            const pressables = document.querySelectorAll('.link-item, .event-card, .about-btn, .back-btn, .back-to-top, .dock-item');
+            const pressables = document.querySelectorAll('.link-item, .event-card, .about-btn, .back-btn, .back-to-top');
             pressables.forEach(el => {
                 el.addEventListener('pointerdown', (e) => {
-                    playSound('tap');
                     if (!reduceMotion) {
                         const r = el.getBoundingClientRect();
                         const size = Math.max(r.width, r.height) * 1.4;
