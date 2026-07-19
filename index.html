@@ -14,7 +14,7 @@
             --electric: #38bdf8;
             --indigo:   #6366f1;
             --pink:     #f5a3c7;
-
+ 
             /* Liquid Glass — mode gelap (default) */
             --bg-gradient: linear-gradient(165deg, #2c0a7a 0%, #12358f 40%, #3d1fc4 65%, #7c6ef5 82%, #f2a8cc 100%);
             --glass-bg:        rgba(255,255,255,0.14);
@@ -30,7 +30,7 @@
             --spotlight:       rgba(255,255,255,0.4);
             --grain-opacity:   0.035;
         }
-
+ 
         @media (prefers-color-scheme: light) {
             :root {
                 --bg-gradient: linear-gradient(165deg, #e3ecff 0%, #ece2ff 42%, #ffe6f3 74%, #fff4e3 100%);
@@ -48,22 +48,22 @@
                 --grain-opacity:   0.02;
             }
         }
-
+ 
         * { margin:0; padding:0; box-sizing:border-box; }
-
+ 
         html { -webkit-text-size-adjust: 100%; }
-
+ 
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Inter', 'Segoe UI', sans-serif;
         }
-
+ 
         body, .card, .about-card, .link-item, .about-btn, .back-btn, .top-banner,
         .stat-box, .chip, .step-num, .about-badge, .back-to-top, .event-card {
             transition: background-color 0.4s ease, border-color 0.4s ease, color 0.4s ease, box-shadow 0.4s ease;
         }
-
+ 
         html, body { height: 100%; }
-
+ 
         body {
             background: var(--bg-gradient);
             background-attachment: fixed;
@@ -75,22 +75,15 @@
             position: relative;
             overflow-x: hidden;
         }
-
+ 
         /* ── Layer stack (bottom → top) ──
-           0  particle canvas
+           0  static gradient background
            1  grain texture
            2  content container
            9998 back-to-top
            9999 dynamic island banner
         */
-
-        #particleCanvas {
-            position: fixed; inset: 0;
-            width: 100%; height: 100%;
-            z-index: 0;
-            pointer-events: none;
-        }
-
+ 
         /* Subtle grain, adds a hint of crystal texture across the whole scene */
         .grain {
             position: fixed; inset: -10%;
@@ -101,24 +94,24 @@
             background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
             background-size: 220px 220px;
         }
-
+ 
         @keyframes fadeUp {
             from { opacity:0; transform:translateY(22px) scale(0.98); filter:blur(6px); }
             to   { opacity:1; transform:translateY(0) scale(1); filter:blur(0); }
         }
-
+ 
         @keyframes fadeOutDown {
             from { opacity:1; transform:translateY(0) scale(1); filter:blur(0); }
             to   { opacity:0; transform:translateY(-14px) scale(0.98); filter:blur(4px); }
         }
-
+ 
         @keyframes iconPop {
             0%   { transform: scale(1); }
             40%  { transform: scale(0.78) rotate(-6deg); }
             100% { transform: scale(1) rotate(0deg); }
         }
         .icon-pop { animation: iconPop 0.4s cubic-bezier(.34,1.56,.64,1); }
-
+ 
         @keyframes rippleAnim {
             to { transform: scale(2.6); opacity: 0; }
         }
@@ -132,13 +125,13 @@
             pointer-events: none;
             z-index: 3;
         }
-
+ 
         @keyframes floatY {
             0%, 100% { transform: translateY(0); }
             50%      { transform: translateY(-5px); }
         }
         .profile-wrap { animation: floatY 5.5s ease-in-out infinite; }
-
+ 
         /* ── Preloader — quick crystal reveal, gone before it can annoy anyone ── */
         #preloader {
             position: fixed; inset: 0;
@@ -168,7 +161,7 @@
         @media (prefers-reduced-motion: reduce) {
             .preloader-ring { animation-duration: 1.4s; }
         }
-
+ 
         /* ── Dynamic Island banner ── */
         .top-banner {
             position: fixed;
@@ -190,21 +183,21 @@
             animation: islandIn 0.5s cubic-bezier(.34,1.56,.64,1) both;
         }
         .top-banner[hidden] { display: none; }
-
+ 
         @keyframes islandIn {
             from { opacity: 0; transform: translateX(-50%) scale(0.7); }
             to   { opacity: 1; transform: translateX(-50%) scale(1); }
         }
-
+ 
         .banner-icon { font-size: 13px; flex-shrink: 0; }
-
+ 
         .banner-scroll-wrap {
             flex: 1;
             overflow: hidden;
             mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
             -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
         }
-
+ 
         .banner-text {
             display: inline-block;
             white-space: nowrap;
@@ -215,14 +208,14 @@
             will-change: transform;
             padding-left: 100%;
         }
-
+ 
         @keyframes marquee {
             from { transform: translateX(0); }
             to   { transform: translateX(-100%); }
         }
-
+ 
         .banner-text .sep { margin: 0 20px; opacity: 0.35; }
-
+ 
         /* ── CONTAINER ── */
         .container {
             width: 100%;
@@ -232,7 +225,7 @@
             padding-top: 30px;
             animation: fadeUp 0.55s cubic-bezier(.22,1,.36,1) both;
         }
-
+ 
         /* ── Shared liquid glass surface ── */
         .card, .about-card {
             background: var(--glass-bg);
@@ -253,17 +246,17 @@
             overflow: hidden;
             transform-style: preserve-3d;
         }
-
+ 
         /* Glass surfaces still tilt gently toward the pointer — no extra round glow layer, lighter to paint */
         .tilt-glass { position: relative; }
-
+ 
         /* Profile */
         .profile-wrap {
             position: relative;
             display: inline-block;
             margin-bottom: 16px;
         }
-
+ 
         .profile-wrap::before {
             content: '';
             position: absolute;
@@ -275,9 +268,9 @@
             animation: spinRing 7s linear infinite;
             z-index: -1;
         }
-
+ 
         @keyframes spinRing { to { transform: rotate(360deg); } }
-
+ 
         .profile-img {
             width: 100px; height: 100px;
             border-radius: 50%;
@@ -287,9 +280,9 @@
             transition: transform 0.3s ease;
             will-change: transform;
         }
-
+ 
         .profile-img:hover { transform: scale(1.06); }
-
+ 
         /* Skeleton shimmer while the profile image loads */
         .img-fade { opacity: 0; filter: blur(10px); transition: opacity 0.5s ease, filter 0.5s ease; }
         .img-fade.loaded { opacity: 1; filter: blur(0); }
@@ -304,7 +297,7 @@
         }
         @keyframes shimmer { from { background-position: 200% 0; } to { background-position: -200% 0; } }
         .about-logo-wrap { position: relative; display: inline-block; }
-
+ 
         .profile-badge {
             position: absolute;
             bottom: 1px; right: 1px;
@@ -316,7 +309,7 @@
             display: flex; align-items: center; justify-content: center;
             font-size: 11px; color: #2c2c2a;
         }
-
+ 
         h1 {
             font-size: 22px;
             font-weight: 800;
@@ -325,7 +318,7 @@
             margin-bottom: 8px;
             text-shadow: 0 1px 8px rgba(0,0,0,0.15);
         }
-
+ 
         /* Decorative perforation strip — a quiet nod to Crocs' own ventilation holes */
         .croc-holes {
             width: 128px;
@@ -337,7 +330,7 @@
             background-position: center;
             opacity: 0.55;
         }
-
+ 
         .bio {
             font-size: 13.5px;
             color: var(--text-secondary);
@@ -347,13 +340,13 @@
             justify-content: center;
             gap: 7px;
         }
-
+ 
         .bio-dot {
             width: 5px; height: 5px;
             border-radius: 50%;
             background: var(--text-tertiary);
         }
-
+ 
         .links-eyebrow {
             font-size: 10.5px;
             font-weight: 700;
@@ -363,14 +356,14 @@
             text-align: left;
             margin: 4px 2px 10px;
         }
-
+ 
         /* ── LINKS ── */
         .links-container {
             display: flex;
             flex-direction: column;
             gap: 10px;
         }
-
+ 
         .link-item {
             display: flex;
             align-items: center;
@@ -390,15 +383,15 @@
             position: relative;
             overflow: hidden;
         }
-
+ 
         .link-item:nth-child(1) { animation-delay: 0.08s; }
         .link-item:nth-child(2) { animation-delay: 0.15s; }
         .link-item:nth-child(3) { animation-delay: 0.22s; }
         .link-item:nth-child(4) { animation-delay: 0.29s; }
         .link-item:nth-child(5) { animation-delay: 0.36s; }
-
+ 
         .link-item:active { transform: scale(0.97) !important; }
-
+ 
         @media (hover: hover) {
             .link-item:hover {
                 border-color: rgba(255,255,255,0.55);
@@ -406,7 +399,7 @@
                 background: rgba(255,255,255,0.22);
             }
         }
-
+ 
         .link-icon {
             width: 40px; height: 40px;
             border-radius: 12px;
@@ -420,13 +413,13 @@
             flex-shrink: 0;
             transition: transform 0.35s cubic-bezier(.34,1.56,.64,1);
         }
-
+ 
         @media (hover: hover) {
             .link-item:hover .link-icon { transform: rotate(-8deg) scale(1.08); }
         }
-
+ 
         .link-item.shopee .link-icon { background: rgba(255,140,100,0.3); color: #fff; }
-
+ 
         /* Primary CTA — WhatsApp is the actual ordering channel, so it earns a distinct look */
         .link-item.primary {
             background: rgba(37,211,102,0.16);
@@ -456,19 +449,19 @@
             position: relative;
             top: -1px;
         }
-
+ 
         .link-text { flex: 1; text-align: left; }
-
+ 
         .link-title { font-size: 14.5px; font-weight: 700; color: var(--text-primary); }
-
+ 
         .link-description { font-size: 12px; color: var(--text-secondary); margin-top: 1px; }
-
+ 
         .link-arrow { font-size: 12px; color: rgba(255,255,255,0.5); transition: color 0.2s, transform 0.2s; }
-
+ 
         @media (hover: hover) {
             .link-item:hover .link-arrow { color: #fff; transform: translateX(3px); }
         }
-
+ 
         /* ── EVENT CARD (dark electric glass) ── */
         .event-card {
             display: flex;
@@ -489,7 +482,7 @@
             opacity: 0;
             animation: fadeUp 0.45s 0.36s ease forwards;
         }
-
+ 
         .event-card::before {
             content: '';
             position: absolute;
@@ -498,22 +491,22 @@
             animation: scanPulse 2.5s ease-in-out infinite;
         }
         @keyframes scanPulse { 0%,100%{opacity:0.25} 50%{opacity:1} }
-
+ 
         .event-card > .spotlayer {
             position: absolute; inset: 0;
             background: radial-gradient(ellipse at 80% 50%, rgba(56,189,248,0.1), transparent 60%);
             pointer-events: none;
         }
-
+ 
         @media (hover: hover) {
             .event-card:hover {
                 border-color: rgba(56,189,248,0.75);
                 box-shadow: 0 14px 32px rgba(0,0,0,0.5), 0 0 24px rgba(56,189,248,0.25);
             }
         }
-
+ 
         .event-card:active { transform: scale(0.98) !important; }
-
+ 
         .bolt {
             position: absolute;
             opacity: 0;
@@ -526,14 +519,14 @@
         .bolt-1 { top: 5px;    right: 48px; animation-delay: 0s; }
         .bolt-2 { top: 4px;    right: 30px; animation-delay: 0.7s; font-size: 10px; }
         .bolt-3 { bottom: 5px; right: 40px; animation-delay: 1.4s; font-size: 11px; }
-
+ 
         @keyframes boltFlash {
             0%,100%  { opacity:0; transform:translateY(0); }
             15%,35%  { opacity:1; transform:translateY(-2px); }
             25%      { opacity:0.3; }
             45%      { opacity:0; }
         }
-
+ 
         .event-icon {
             width: 44px; height: 44px;
             border-radius: 14px;
@@ -550,9 +543,9 @@
             0%,100% { box-shadow: 0 0 0 0 rgba(56,189,248,0.4); }
             50%      { box-shadow: 0 0 0 6px rgba(56,189,248,0); }
         }
-
+ 
         .event-text { flex:1; text-align:left; position:relative; z-index:1; }
-
+ 
         .event-badge {
             display: inline-block;
             background: linear-gradient(135deg, #ef4444, #f97316);
@@ -562,16 +555,16 @@
             padding: 2px 7px; border-radius: 20px;
             margin-bottom: 4px;
         }
-
+ 
         .event-title {
             font-size: 14px; font-weight: 800;
             color: #fff;
             text-shadow: 0 0 10px rgba(56,189,248,0.7);
             margin-bottom: 2px;
         }
-
+ 
         .event-desc { font-size: 11px; color: rgba(56,189,248,0.85); }
-
+ 
         .event-arrow {
             font-size: 12px;
             color: rgba(56,189,248,0.45);
@@ -581,7 +574,7 @@
         @media (hover: hover) {
             .event-card:hover .event-arrow { color: #38bdf8; transform: translateX(3px); }
         }
-
+ 
         /* ── ABOUT BTN ── */
         .about-btn {
             display: flex;
@@ -606,16 +599,16 @@
             position: relative;
             overflow: hidden;
         }
-
+ 
         .about-btn:active { transform: scale(0.98) !important; }
-
+ 
         @media (hover: hover) {
             .about-btn:hover { background: rgba(255,255,255,0.24); border-color: rgba(255,255,255,0.6); }
             .about-btn:hover .btn-icon { transform: rotate(-8deg) scale(1.08); }
         }
-
+ 
         .btn-icon { transition: transform 0.35s cubic-bezier(.34,1.56,.64,1); }
-
+ 
         .btn-icon {
             width: 32px; height: 32px;
             background: rgba(255,255,255,0.18);
@@ -623,7 +616,7 @@
             display: flex; align-items: center; justify-content: center;
             font-size: 14px;
         }
-
+ 
         /* ── FOOTER ── */
         .footer {
             text-align: center;
@@ -633,7 +626,7 @@
             animation: fadeUp 0.45s 0.48s ease both;
         }
         .footer p { margin-bottom: 3px; }
-
+ 
         /* ── BACK TO TOP ── */
         .back-to-top {
             position: fixed;
@@ -661,7 +654,7 @@
             .back-to-top:hover i { transform: translateY(-1px); }
         }
         .back-to-top i { transition: transform 0.25s ease; }
-
+ 
         /* ── ABOUT PAGE ── */
         #aboutPage {
             display: none;
@@ -670,7 +663,7 @@
             position: relative; z-index: 2;
             padding-top: 30px;
         }
-
+ 
         .about-logo {
             width: 76px; height: 76px;
             border-radius: 50%;
@@ -678,9 +671,9 @@
             box-shadow: 0 0 0 3px rgba(255,255,255,0.5), 0 0 0 6px rgba(124,110,245,0.5), 0 6px 18px rgba(0,0,0,0.2);
             margin-bottom: 13px;
         }
-
+ 
         .about-card h2 { font-size: 19px; font-weight: 800; color: var(--text-primary); margin-bottom: 6px; }
-
+ 
         .about-badge {
             display: inline-block;
             background: rgba(255,255,255,0.22);
@@ -691,7 +684,7 @@
             padding: 4px 12px; border-radius: 20px; margin-bottom: 20px;
             color: var(--text-primary);
         }
-
+ 
         .about-divider {
             height: 12px;
             margin: 16px 0;
@@ -702,25 +695,25 @@
             mask-image: linear-gradient(to right, transparent, black 15%, black 85%, transparent);
             -webkit-mask-image: linear-gradient(to right, transparent, black 15%, black 85%, transparent);
         }
-
+ 
         .about-section-title {
             font-size: 10px; font-weight: 700;
             letter-spacing: 1.5px; text-transform: uppercase;
             color: var(--text-secondary); margin-bottom: 9px;
             display: flex; align-items: center; gap: 6px; text-align: left;
         }
-
+ 
         .about-text {
             font-size: 13.5px; color: var(--text-secondary);
             line-height: 1.75; text-align: left; margin-bottom: 8px;
         }
-
+ 
         .about-stats {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
             gap: 9px; margin: 12px 0;
         }
-
+ 
         .stat-box {
             background: rgba(255,255,255,0.14);
             backdrop-filter: blur(10px);
@@ -733,32 +726,32 @@
             transition: opacity 0.5s ease, transform 0.5s cubic-bezier(.22,1,.36,1);
         }
         .stat-box.in-view { opacity: 1; transform: translateY(0); }
-
+ 
         .reveal-block {
             opacity: 0;
             transform: translateY(14px);
             transition: opacity 0.55s ease, transform 0.55s cubic-bezier(.22,1,.36,1);
         }
         .reveal-block.in-view { opacity: 1; transform: translateY(0); }
-
+ 
         .stat-box .stat-num {
             font-size: clamp(13px, 3.5vw, 19px);
             font-weight: 800; color: var(--text-primary); display: block;
         }
-
+ 
         .stat-box .stat-label { font-size: 10px; color: var(--text-tertiary); margin-top: 3px; display: block; }
-
+ 
         .step-list { list-style: none; text-align: left; }
-
+ 
         .step-list li {
             display: flex; align-items: flex-start; gap: 11px;
             padding: 9px 0;
             border-bottom: 1px solid rgba(255,255,255,0.15);
             font-size: 13.5px; color: var(--text-secondary);
         }
-
+ 
         .step-list li:last-child { border-bottom: none; }
-
+ 
         .step-num {
             width: 22px; height: 22px;
             background: rgba(255,255,255,0.25);
@@ -768,9 +761,9 @@
             display: flex; align-items: center; justify-content: center;
             font-size: 10px; font-weight: 800; flex-shrink: 0; margin-top: 1px;
         }
-
+ 
         .tech-chips { display: flex; flex-wrap: wrap; gap: 7px; margin-top: 10px; justify-content: center; }
-
+ 
         .chip {
             background: rgba(255,255,255,0.18);
             backdrop-filter: blur(8px);
@@ -779,7 +772,7 @@
             padding: 4px 11px; border-radius: 20px;
             border: 1px solid rgba(255,255,255,0.3);
         }
-
+ 
         .back-btn {
             display: flex; align-items: center; justify-content: center; gap: 8px;
             width: 100%; padding: 14px;
@@ -797,13 +790,13 @@
             position: relative;
             overflow: hidden;
         }
-
+ 
         @media (hover: hover) {
             .back-btn:hover { background: rgba(255,255,255,0.3); }
         }
-
+ 
         .back-btn:active { transform: scale(0.97) !important; }
-
+ 
         /* ── Toast — quiet confirmation before an outbound link opens ── */
         .toast-stack {
             position: fixed;
@@ -833,14 +826,14 @@
         .toast.out { animation: toastOut 0.3s ease forwards; }
         @keyframes toastIn { from { opacity: 0; transform: translateY(10px) scale(0.9); } to { opacity: 1; transform: translateY(0) scale(1); } }
         @keyframes toastOut { to { opacity: 0; transform: translateY(-8px) scale(0.95); } }
-
+ 
         /* ── Accessibility: visible focus ring everywhere ── */
         a:focus-visible, button:focus-visible {
             outline: 2px solid var(--electric);
             outline-offset: 3px;
             border-radius: 12px;
         }
-
+ 
         /* ── Reduced motion: keep it calm ── */
         @media (prefers-reduced-motion: reduce) {
             *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; scroll-behavior: auto !important; }
@@ -850,7 +843,7 @@
             .profile-wrap.loading::after, .about-logo-wrap.loading::after { animation: none; }
             .img-fade { opacity: 1 !important; filter: none !important; }
         }
-
+ 
         /* Responsif */
         @media (max-width: 400px) {
             body { padding: 20px 12px 36px; }
@@ -862,16 +855,15 @@
     </style>
 </head>
 <body>
-
+ 
     <!-- Preloader — brief crystal reveal before the page settles -->
     <div id="preloader" aria-hidden="true">
         <div class="preloader-ring"></div>
         <span class="preloader-word">source.crocs</span>
     </div>
-
-    <canvas id="particleCanvas" aria-hidden="true"></canvas>
+ 
     <div class="grain" aria-hidden="true"></div>
-
+ 
     <!-- DYNAMIC ISLAND BANNER -->
     <div class="top-banner" id="topBanner" role="status">
         <span class="banner-icon">📢</span>
@@ -879,7 +871,7 @@
             <span class="banner-text" id="bannerText"></span>
         </div>
     </div>
-
+ 
     <!-- HALAMAN UTAMA -->
     <div class="container" id="homePage">
         <div class="card tilt-glass">
@@ -894,7 +886,7 @@
                 source.crocs Link-Tree
                 <span class="bio-dot"></span>
             </p>
-
+ 
             <p class="links-eyebrow">Hubungi &amp; Ikuti Kami</p>
             <div class="links-container">
                 <a href="https://wa.me/62895342072060" class="link-item primary tilt-glass" target="_blank" rel="noopener" data-toast="Membuka WhatsApp…">
@@ -905,7 +897,7 @@
                     </div>
                     <i class="fas fa-chevron-right link-arrow"></i>
                 </a>
-
+ 
                 <a href="https://instagram.com/source.crocs_2nd" class="link-item tilt-glass" target="_blank" rel="noopener" data-toast="Membuka Instagram…">
                     <div class="link-icon"><i class="fab fa-instagram"></i></div>
                     <div class="link-text">
@@ -914,7 +906,7 @@
                     </div>
                     <i class="fas fa-chevron-right link-arrow"></i>
                 </a>
-
+ 
                 <a href="https://tiktok.com/@source.crocs" class="link-item tilt-glass" target="_blank" rel="noopener" data-toast="Membuka TikTok…">
                     <div class="link-icon"><i class="fab fa-tiktok"></i></div>
                     <div class="link-text">
@@ -923,7 +915,7 @@
                     </div>
                     <i class="fas fa-chevron-right link-arrow"></i>
                 </a>
-
+ 
                 <a href="https://tiktok.com/@source.crocs04" class="link-item tilt-glass" target="_blank" rel="noopener" data-toast="Membuka TikTok kedua…">
                     <div class="link-icon"><i class="fab fa-tiktok"></i></div>
                     <div class="link-text">
@@ -932,7 +924,7 @@
                     </div>
                     <i class="fas fa-chevron-right link-arrow"></i>
                 </a>
-
+ 
                 <a href="https://shopee.co.id/source.crocs" class="link-item shopee tilt-glass" target="_blank" rel="noopener" data-toast="Membuka Shopee…">
                     <div class="link-icon"><i class="fas fa-shopping-bag"></i></div>
                     <div class="link-text">
@@ -941,7 +933,7 @@
                     </div>
                     <i class="fas fa-chevron-right link-arrow"></i>
                 </a>
-
+ 
                 <!-- Event Card -->
                 <a href="https://mezabotsourcecrocs.github.io/super-lucky-draw/" class="event-card" target="_blank" rel="noopener" data-toast="Membuka Super Lucky Draw…">
                     <span class="bolt bolt-1">⚡</span>
@@ -958,19 +950,19 @@
                 </a>
             </div>
         </div>
-
+ 
         <button class="about-btn tilt-glass" onclick="showAbout()">
             <div class="btn-icon"><i class="fas fa-info-circle"></i></div>
             <span>About This Link-Tree</span>
             <i class="fas fa-chevron-right" style="margin-left:auto; font-size:12px; opacity:0.5;"></i>
         </button>
-
+ 
         <div class="footer">
             <p>© 2026 Source Crocs · Dibuat dengan <i class="fas fa-heart" style="color:#f87171;"></i> oleh secureXXI</p>
             <p style="opacity:0.55; font-size:11px; margin-top:3px;">Terakhir diperbarui: <span id="currentDate"></span></p>
         </div>
     </div>
-
+ 
     <!-- HALAMAN ABOUT -->
     <div id="aboutPage">
         <div class="about-card tilt-glass">
@@ -979,13 +971,13 @@
             </div>
             <h2>source.crocs</h2>
             <span class="about-badge">✦ Authentic Store ✦</span>
-
+ 
             <hr class="about-divider">
             <div class="reveal-block">
                 <p class="about-section-title"><i class="fas fa-store"></i> Tentang Kami</p>
                 <p class="about-text">Source Crocs adalah toko yang menyediakan produk Crocs Original Reject dengan harga terjangkau. Beroperasi secara online melalui sistem Pre-Order untuk memastikan setiap produk original dan berkualitas tinggi.</p>
             </div>
-
+ 
             <hr class="about-divider">
             <div class="reveal-block">
                 <p class="about-section-title"><i class="fas fa-trophy"></i> Pencapaian</p>
@@ -995,7 +987,7 @@
                     <div class="stat-box"><span class="stat-num" data-count="100" data-suffix="%">0%</span><span class="stat-label">Authentic</span></div>
                 </div>
             </div>
-
+ 
             <hr class="about-divider">
             <div class="reveal-block">
                 <p class="about-section-title"><i class="fas fa-clipboard-list"></i> Cara Pemesanan</p>
@@ -1006,13 +998,13 @@
                     <li><span class="step-num">4</span> Tunggu konfirmasi &amp; estimasi pengiriman</li>
                 </ul>
             </div>
-
+ 
             <hr class="about-divider">
             <div class="reveal-block">
                 <p class="about-section-title"><i class="fas fa-headset"></i> Complain?</p>
                 <p class="about-text" style="text-align:center;">📧 <strong>customerhelpsourcecrocs@gmail.com</strong></p>
             </div>
-
+ 
             <hr class="about-divider">
             <div class="reveal-block">
                 <p class="about-section-title"><i class="fas fa-code"></i> Tentang Website Ini</p>
@@ -1022,48 +1014,48 @@
                     <div class="stat-box"><span class="stat-num" style="font-size:12px;">secureXXI</span><span class="stat-label">Developer</span></div>
                 </div>
             </div>
-
+ 
             <button class="back-btn tilt-glass" onclick="showHome()">
                 <i class="fas fa-arrow-left"></i> Kembali ke Halaman Utama
             </button>
         </div>
     </div>
-
+ 
     <button class="back-to-top" id="backToTop" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="Kembali ke atas">
         <i class="fas fa-chevron-up"></i>
     </button>
-
+ 
     <div class="toast-stack" id="toastStack" aria-live="polite"></div>
-
+ 
     <script>
         const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
         const canHover = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
-
+ 
         // ── BANNER CONFIG ──
         const BANNER_MESSAGES = [
             "",
         ];
-
+ 
         const bannerEl = document.getElementById('bannerText');
         const topBanner = document.getElementById('topBanner');
         const joined = BANNER_MESSAGES.filter(m => m.trim().length).join('<span class="sep">✦</span>');
-
+ 
         if (!joined) {
             topBanner.hidden = true;
         } else {
             bannerEl.innerHTML = joined + '<span class="sep">✦</span>' + joined;
         }
-
+ 
         function fixPad() {
             document.body.style.paddingTop = topBanner.hidden ? '' : (topBanner.offsetHeight + 24) + 'px';
         }
         fixPad();
         window.addEventListener('resize', fixPad);
-
+ 
         // ── Tanggal ──
         document.getElementById('currentDate').textContent =
             new Date().toLocaleDateString('id-ID', { day:'numeric', month:'long', year:'numeric' });
-
+ 
         // ── Skeleton shimmer → fade in once the profile images actually load ──
         function unveilImage(img, wrap) {
             const finish = () => { img.classList.add('loaded'); wrap.classList.remove('loading'); };
@@ -1075,7 +1067,7 @@
         }
         unveilImage(document.getElementById('profileImg'), document.getElementById('profileWrap'));
         unveilImage(document.getElementById('aboutLogoImg'), document.getElementById('aboutLogoWrap'));
-
+ 
         // ── Toast — quiet confirmation right before an outbound link opens ──
         const toastStack = document.getElementById('toastStack');
         function showToast(text) {
@@ -1091,7 +1083,7 @@
         document.querySelectorAll('[data-toast]').forEach(el => {
             el.addEventListener('click', () => showToast(el.dataset.toast));
         });
-
+ 
         // ── Count-up animation for numeric stats, runs once when a stat-box enters view ──
         function countUp(el, target, suffix, duration) {
             const start = performance.now();
@@ -1103,10 +1095,10 @@
             }
             requestAnimationFrame(tick);
         }
-
+ 
         // ── Navigasi — crossfade antar halaman, bukan potong-langsung ──
         const EXIT_MS = reduceMotion ? 0 : 260;
-
+ 
         function switchPage(fromEl, toEl) {
             fromEl.style.animation = reduceMotion ? 'none' : 'fadeOutDown 0.26s ease forwards';
             setTimeout(() => {
@@ -1119,16 +1111,16 @@
                 observeReveals();
             }, EXIT_MS);
         }
-
+ 
         function showAbout() { switchPage(document.getElementById('homePage'), document.getElementById('aboutPage')); }
         function showHome()  { switchPage(document.getElementById('aboutPage'), document.getElementById('homePage')); }
-
+ 
         // ── Back to Top ──
         const btt = document.getElementById('backToTop');
         window.addEventListener('scroll', () => {
             btt.classList.toggle('visible', window.scrollY > 180);
         }, { passive: true });
-
+ 
         // ── Scroll-triggered reveal for stat boxes and about-page sections ──
         const revealObserver = 'IntersectionObserver' in window
             ? new IntersectionObserver((entries) => {
@@ -1148,7 +1140,7 @@
                 });
             }, { threshold: 0.2 })
             : null;
-
+ 
         function observeReveals() {
             const targets = document.querySelectorAll('.stat-box:not(.in-view), .reveal-block:not(.in-view)');
             if (revealObserver) {
@@ -1158,7 +1150,7 @@
             }
         }
         observeReveals();
-
+ 
         // ── Preloader — quick crystal reveal, then hand off to the normal body fade-in ──
         document.body.style.opacity = '0';
         const preloader = document.getElementById('preloader');
@@ -1169,7 +1161,7 @@
             setTimeout(() => preloader.remove(), 550);
         }
         setTimeout(dismissPreloader, reduceMotion ? 60 : 550);
-
+ 
         // ── Sound design placeholders — wired up but silent by default; do not autoplay ──
         const SOUND_ENABLED = false;
         const sounds = { tap: null /* e.g. new Audio('tap.mp3') */, notify: null /* e.g. new Audio('notify.mp3') */ };
@@ -1178,7 +1170,7 @@
             sounds[key].currentTime = 0;
             sounds[key].play().catch(() => {});
         }
-
+ 
         // ── Tactile feedback: ripple + icon pop on press, for every clickable glass surface ──
         (function () {
             const pressables = document.querySelectorAll('.link-item, .event-card, .about-btn, .back-btn, .back-to-top');
@@ -1205,7 +1197,7 @@
                 });
             });
         })();
-
+ 
         // ── Magnetic tilt on glass surfaces (no background glow) ──
         if (canHover && !reduceMotion) {
             function attachTilt(el, max) {
@@ -1217,22 +1209,22 @@
                 });
                 el.addEventListener('pointerleave', () => { el.style.transform = ''; });
             }
-
+ 
             document.querySelectorAll('.card, .about-card').forEach(el => attachTilt(el, 4));
             document.querySelectorAll('.link-item, .event-card, .about-btn, .back-btn').forEach(el => attachTilt(el, 3));
         }
-
+ 
         // ── Swipe-right to go back, from About to Home (touch devices) ──
         (function () {
             const aboutPage = document.getElementById('aboutPage');
             let touchStartX = 0, touchStartY = 0, tracking = false;
-
+ 
             aboutPage.addEventListener('touchstart', (e) => {
                 touchStartX = e.touches[0].clientX;
                 touchStartY = e.touches[0].clientY;
                 tracking = true;
             }, { passive: true });
-
+ 
             aboutPage.addEventListener('touchend', (e) => {
                 if (!tracking) return;
                 tracking = false;
@@ -1241,91 +1233,7 @@
                 if (dx > 90 && Math.abs(dy) < 60) showHome();
             }, { passive: true });
         })();
-
-        // ── PARTIKEL LIQUID GLASS (canvas, GPU-friendly) ──
-        (function () {
-            const canvas = document.getElementById('particleCanvas');
-            const ctx = canvas.getContext('2d');
-            let particles = [];
-            let W, H;
-            let mouse = { x: -9999, y: -9999 };
-
-            function resize() {
-                W = canvas.width = window.innerWidth;
-                H = canvas.height = document.documentElement.scrollHeight;
-            }
-
-            function makeParticle() {
-                const r = 2 + Math.random() * 5;
-                return {
-                    x: Math.random() * W,
-                    y: Math.random() * H,
-                    r: r,
-                    baseR: r,
-                    vx: (Math.random() - 0.5) * 0.25,
-                    vy: -0.15 - Math.random() * 0.35,
-                    alpha: 0.15 + Math.random() * 0.35,
-                    sway: Math.random() * Math.PI * 2,
-                    swaySpeed: 0.005 + Math.random() * 0.015
-                };
-            }
-
-            function init() {
-                resize();
-                const count = reduceMotion ? 0 : Math.min(70, Math.floor((W * H) / 26000));
-                particles = Array.from({ length: count }, makeParticle);
-            }
-
-            function step() {
-                ctx.clearRect(0, 0, W, H);
-                for (const p of particles) {
-                    p.sway += p.swaySpeed;
-                    p.x += p.vx + Math.sin(p.sway) * 0.2;
-                    p.y += p.vy;
-
-                    const dx = p.x - mouse.x;
-                    const dy = p.y - mouse.y;
-                    const dist = Math.sqrt(dx * dx + dy * dy);
-                    if (dist < 90) {
-                        const force = (90 - dist) / 90;
-                        p.x += (dx / dist) * force * 1.6;
-                        p.y += (dy / dist) * force * 1.6;
-                        p.r = p.baseR + force * 3;
-                    } else {
-                        p.r += (p.baseR - p.r) * 0.08;
-                    }
-
-                    if (p.y < -20) { p.y = H + 20; p.x = Math.random() * W; }
-                    if (p.x < -20) p.x = W + 20;
-                    if (p.x > W + 20) p.x = -20;
-
-                    const glowGrad = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, p.r * 4);
-                    glowGrad.addColorStop(0, `rgba(255,255,255,${p.alpha})`);
-                    glowGrad.addColorStop(1, 'rgba(255,255,255,0)');
-                    ctx.fillStyle = glowGrad;
-                    ctx.beginPath();
-                    ctx.arc(p.x, p.y, p.r * 4, 0, Math.PI * 2);
-                    ctx.fill();
-
-                    ctx.fillStyle = `rgba(255,255,255,${Math.min(p.alpha + 0.25, 0.85)})`;
-                    ctx.beginPath();
-                    ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-                    ctx.fill();
-                }
-                requestAnimationFrame(step);
-            }
-
-            window.addEventListener('resize', () => { resize(); });
-            window.addEventListener('mousemove', (e) => {
-                mouse.x = e.clientX;
-                mouse.y = e.clientY + window.scrollY;
-            });
-            window.addEventListener('mouseleave', () => { mouse.x = -9999; mouse.y = -9999; });
-
-            init();
-            if (!reduceMotion) requestAnimationFrame(step);
-        })();
-
+ 
     </script>
 </body>
 </html>
