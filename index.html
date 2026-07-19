@@ -82,7 +82,6 @@
            0  aurora + orbs + particle canvas
            1  grain texture
            2  content container
-           3  water ripple canvas (rendered above glass, clicks pass through)
            9998 back-to-top
            9999 dynamic island banner
         */
@@ -94,31 +93,8 @@
             pointer-events: none;
         }
 
-        #waterCanvas {
-            position: fixed; inset: 0;
-            width: 100%; height: 100%;
-            z-index: 3;
-            pointer-events: none;
-            mix-blend-mode: overlay;
-        }
-
-        /* Cursor-reactive ambient light (desktop only) */
-        #cursorGlow {
-            position: fixed;
-            top: 0; left: 0;
-            width: 480px; height: 480px;
-            margin: -240px 0 0 -240px;
-            border-radius: 50%;
-            background: radial-gradient(circle, rgba(255,255,255,0.16), transparent 68%);
-            pointer-events: none;
-            z-index: 1;
-            opacity: 0;
-            transition: opacity 0.4s ease;
-            will-change: transform;
-        }
-
-        /* Aurora — slow drifting blurred orbs, "color breathing" */
-        .aurora { position: fixed; inset: -15%; z-index: 0; pointer-events: none; filter: blur(70px); }
+        /* Aurora — slow drifting blurred orbs, "color breathing", with organic liquid distortion */
+        .aurora { position: fixed; inset: -15%; z-index: 0; pointer-events: none; filter: blur(70px) url(#liquidDistort); }
         .aurora span {
             position: absolute;
             border-radius: 50%;
@@ -184,6 +160,36 @@
             50%      { transform: translateY(-5px); }
         }
         .profile-wrap { animation: floatY 5.5s ease-in-out infinite; }
+
+        /* ── Preloader — quick crystal reveal, gone before it can annoy anyone ── */
+        #preloader {
+            position: fixed; inset: 0;
+            z-index: 10000;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 14px;
+            background: var(--bg-gradient);
+            transition: opacity 0.5s ease, filter 0.5s ease;
+        }
+        #preloader.gone { opacity: 0; filter: blur(12px); pointer-events: none; }
+        .preloader-ring {
+            width: 46px; height: 46px;
+            border-radius: 50%;
+            border: 3px solid rgba(255,255,255,0.25);
+            border-top-color: rgba(255,255,255,0.9);
+            animation: spinRing 0.9s linear infinite;
+        }
+        .preloader-word {
+            font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Inter', sans-serif;
+            font-size: 13px; font-weight: 700; letter-spacing: 0.5px;
+            color: rgba(255,255,255,0.85);
+            animation: fadeUp 0.6s ease both;
+        }
+        @media (prefers-reduced-motion: reduce) {
+            .preloader-ring { animation-duration: 1.4s; }
+        }
 
         /* ── Dynamic Island banner ── */
         .top-banner {
@@ -256,7 +262,12 @@
             -webkit-backdrop-filter: blur(26px) saturate(180%);
             border: 1px solid var(--glass-border);
             border-radius: 28px;
-            box-shadow: 0 20px 54px var(--shadow-color), inset 0 1px 1px var(--glass-highlight), inset 0 -1px 12px rgba(255,255,255,0.04);
+            box-shadow:
+                0 24px 60px var(--shadow-color),
+                inset 0 1px 1px var(--glass-highlight),
+                inset 0 -1px 14px rgba(255,255,255,0.05),
+                inset 0 0 0 1px rgba(255,255,255,0.05),
+                0 1px 0 rgba(255,255,255,0.08);
             padding: 34px 24px 24px;
             text-align: center;
             margin-bottom: 14px;
@@ -280,22 +291,8 @@
             50% { transform: translateX(120%); }
         }
 
-        /* Cursor-follow spotlight highlight, driven by --spot-x / --spot-y set in JS */
+        /* Glass surfaces still tilt gently toward the pointer, without the extra light glow */
         .tilt-glass { position: relative; }
-        .tilt-glass::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            border-radius: inherit;
-            background: radial-gradient(circle at var(--spot-x, 50%) var(--spot-y, 0%), var(--spotlight), transparent 55%);
-            opacity: 0;
-            transition: opacity 0.35s ease;
-            pointer-events: none;
-            z-index: 2;
-        }
-        @media (hover: hover) and (pointer: fine) {
-            .tilt-glass:hover::before { opacity: 0.5; }
-        }
 
         /* Profile */
         .profile-wrap {
@@ -850,6 +847,7 @@
             .card, .about-card { transform: none !important; }
             .profile-wrap.loading::after, .about-logo-wrap.loading::after { animation: none; }
             .img-fade { opacity: 1 !important; filter: none !important; }
+            .aurora { filter: blur(70px); }
         }
 
         /* Responsif */
@@ -859,17 +857,32 @@
             .profile-img { width: 88px; height: 88px; }
             h1 { font-size: 20px; }
             .about-stats { grid-template-columns: 1fr; }
-            #cursorGlow { display: none; }
         }
     </style>
 </head>
 <body>
 
+    <!-- Liquid distortion filter — animated turbulence displaces the aurora orbs for a true refractive wobble -->
+    <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+        <defs>
+            <filter id="liquidDistort" x="-20%" y="-20%" width="140%" height="140%">
+                <feTurbulence type="fractalNoise" baseFrequency="0.008 0.012" numOctaves="2" seed="7" result="noise">
+                    <animate attributeName="baseFrequency" dur="22s" values="0.008 0.012;0.014 0.018;0.008 0.012" repeatCount="indefinite" />
+                </feTurbulence>
+                <feDisplacementMap in="SourceGraphic" in2="noise" scale="34" xChannelSelector="R" yChannelSelector="G" />
+            </filter>
+        </defs>
+    </svg>
+
+    <!-- Preloader — brief crystal reveal before the page settles -->
+    <div id="preloader" aria-hidden="true">
+        <div class="preloader-ring"></div>
+        <span class="preloader-word">source.crocs</span>
+    </div>
+
     <canvas id="particleCanvas" aria-hidden="true"></canvas>
     <div class="aurora" aria-hidden="true"><span class="o1"></span><span class="o2"></span><span class="o3"></span><span class="o4"></span></div>
     <div class="grain" aria-hidden="true"></div>
-    <canvas id="waterCanvas" aria-hidden="true"></canvas>
-    <div id="cursorGlow" aria-hidden="true"></div>
 
     <!-- DYNAMIC ISLAND BANNER -->
     <div class="top-banner" id="topBanner" role="status">
@@ -1157,18 +1170,32 @@
         }
         observeReveals();
 
-        // ── Fade in body ──
+        // ── Preloader — quick crystal reveal, then hand off to the normal body fade-in ──
         document.body.style.opacity = '0';
-        requestAnimationFrame(() => {
+        const preloader = document.getElementById('preloader');
+        function dismissPreloader() {
+            preloader.classList.add('gone');
             document.body.style.transition = 'opacity 0.5s';
             document.body.style.opacity = '1';
-        });
+            setTimeout(() => preloader.remove(), 550);
+        }
+        setTimeout(dismissPreloader, reduceMotion ? 60 : 550);
+
+        // ── Sound design placeholders — wired up but silent by default; do not autoplay ──
+        const SOUND_ENABLED = false;
+        const sounds = { tap: null /* e.g. new Audio('tap.mp3') */, notify: null /* e.g. new Audio('notify.mp3') */ };
+        function playSound(key) {
+            if (!SOUND_ENABLED || !sounds[key]) return;
+            sounds[key].currentTime = 0;
+            sounds[key].play().catch(() => {});
+        }
 
         // ── Tactile feedback: ripple + icon pop on press, for every clickable glass surface ──
         (function () {
             const pressables = document.querySelectorAll('.link-item, .event-card, .about-btn, .back-btn, .back-to-top');
             pressables.forEach(el => {
                 el.addEventListener('pointerdown', (e) => {
+                    playSound('tap');
                     if (!reduceMotion) {
                         const r = el.getBoundingClientRect();
                         const size = Math.max(r.width, r.height) * 1.4;
@@ -1190,15 +1217,8 @@
             });
         })();
 
-        // ── Cursor-reactive ambient light + magnetic tilt on glass surfaces ──
+        // ── Magnetic tilt on glass surfaces (no trailing cursor glow) ──
         if (canHover && !reduceMotion) {
-            const glow = document.getElementById('cursorGlow');
-            window.addEventListener('mousemove', (e) => {
-                glow.style.opacity = '1';
-                glow.style.transform = `translate(${e.clientX}px, ${e.clientY}px)`;
-            });
-            window.addEventListener('mouseleave', () => { glow.style.opacity = '0'; });
-
             function attachTilt(el, max) {
                 el.addEventListener('pointermove', (e) => {
                     const r = el.getBoundingClientRect();
@@ -1319,96 +1339,6 @@
             if (!reduceMotion) requestAnimationFrame(step);
         })();
 
-        // ── SIMULASI AIR — persamaan gelombang, bisa dimainkan lewat sentuhan/klik ──
-        (function () {
-            if (reduceMotion) return;
-
-            const canvas = document.getElementById('waterCanvas');
-            const ctx = canvas.getContext('2d');
-
-            const cols = 90, rows = 130;
-            let bufA = new Float32Array(cols * rows);
-            let bufB = new Float32Array(cols * rows);
-
-            const off = document.createElement('canvas');
-            off.width = cols; off.height = rows;
-            const offCtx = off.getContext('2d');
-            const imgData = offCtx.createImageData(cols, rows);
-
-            function resizeCanvas() {
-                canvas.width = window.innerWidth;
-                canvas.height = window.innerHeight;
-            }
-            resizeCanvas();
-            window.addEventListener('resize', resizeCanvas);
-
-            function splash(clientX, clientY, strength) {
-                const cx = Math.floor((clientX / window.innerWidth) * cols);
-                const cy = Math.floor((clientY / window.innerHeight) * rows);
-                for (let oy = -1; oy <= 1; oy++) {
-                    for (let ox = -1; ox <= 1; ox++) {
-                        const x = cx + ox, y = cy + oy;
-                        if (x > 0 && x < cols - 1 && y > 0 && y < rows - 1) {
-                            bufA[y * cols + x] = strength;
-                        }
-                    }
-                }
-            }
-
-            let dragging = false;
-            window.addEventListener('pointerdown', e => {
-                dragging = true;
-                splash(e.clientX, e.clientY, 260);
-            });
-            window.addEventListener('pointermove', e => {
-                if (dragging) splash(e.clientX, e.clientY, 130);
-            });
-            window.addEventListener('pointerup', () => { dragging = false; });
-            window.addEventListener('pointerleave', () => { dragging = false; });
-
-            function update() {
-                for (let y = 1; y < rows - 1; y++) {
-                    for (let x = 1; x < cols - 1; x++) {
-                        const i = y * cols + x;
-                        bufB[i] = (bufA[i - 1] + bufA[i + 1] + bufA[i - cols] + bufA[i + cols]) / 2 - bufB[i];
-                        bufB[i] *= 0.965;
-                    }
-                }
-                const tmp = bufA; bufA = bufB; bufB = tmp;
-            }
-
-            function render() {
-                const data = imgData.data;
-                for (let y = 0; y < rows; y++) {
-                    for (let x = 0; x < cols; x++) {
-                        const i = y * cols + x;
-                        let dx = 0, dy = 0;
-                        if (x > 0 && x < cols - 1) dx = bufA[i + 1] - bufA[i - 1];
-                        if (y > 0 && y < rows - 1) dy = bufA[i + cols] - bufA[i - cols];
-                        const shade = Math.max(-1, Math.min(1, (dx + dy) / 40));
-                        const p = i * 4;
-                        if (shade > 0) {
-                            data[p] = 255; data[p + 1] = 255; data[p + 2] = 255;
-                            data[p + 3] = shade * 95;
-                        } else {
-                            data[p] = 20; data[p + 1] = 40; data[p + 2] = 90;
-                            data[p + 3] = -shade * 75;
-                        }
-                    }
-                }
-                offCtx.putImageData(imgData, 0, 0);
-                ctx.clearRect(0, 0, canvas.width, canvas.height);
-                ctx.imageSmoothingEnabled = true;
-                ctx.drawImage(off, 0, 0, canvas.width, canvas.height);
-            }
-
-            function loop() {
-                update();
-                render();
-                requestAnimationFrame(loop);
-            }
-            requestAnimationFrame(loop);
-        })();
     </script>
 </body>
 </html>
