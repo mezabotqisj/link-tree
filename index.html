@@ -16,7 +16,12 @@
             --pink:     #f5a3c7;
 
             /* Liquid Glass — mode gelap (default) */
-            --bg-gradient: linear-gradient(165deg, #2c0a7a 0%, #12358f 40%, #3d1fc4 65%, #7c6ef5 82%, #f2a8cc 100%);
+            --bg-gradient:
+                radial-gradient(circle at 12% 12%, rgba(139,92,246,0.65), transparent 42%),
+                radial-gradient(circle at 88% 18%, rgba(56,189,248,0.55), transparent 44%),
+                radial-gradient(circle at 20% 88%, rgba(244,114,182,0.5), transparent 46%),
+                radial-gradient(circle at 92% 85%, rgba(79,140,255,0.55), transparent 42%),
+                linear-gradient(165deg, #2c0a7a 0%, #12358f 40%, #3d1fc4 65%, #7c6ef5 82%, #f2a8cc 100%);
             --glass-bg:        rgba(255,255,255,0.14);
             --glass-bg-strong: rgba(255,255,255,0.26);
             --glass-bg-soft:   rgba(255,255,255,0.12);
@@ -33,7 +38,12 @@
 
         @media (prefers-color-scheme: light) {
             :root {
-                --bg-gradient: linear-gradient(165deg, #e3ecff 0%, #ece2ff 42%, #ffe6f3 74%, #fff4e3 100%);
+                --bg-gradient:
+                    radial-gradient(circle at 12% 10%, rgba(167,139,250,0.4), transparent 42%),
+                    radial-gradient(circle at 90% 15%, rgba(125,211,252,0.4), transparent 44%),
+                    radial-gradient(circle at 15% 90%, rgba(249,168,212,0.4), transparent 46%),
+                    radial-gradient(circle at 90% 88%, rgba(253,224,168,0.4), transparent 42%),
+                    linear-gradient(165deg, #e3ecff 0%, #ece2ff 42%, #ffe6f3 74%, #fff4e3 100%);
                 --glass-bg:        rgba(255,255,255,0.5);
                 --glass-bg-strong: rgba(255,255,255,0.66);
                 --glass-bg-soft:   rgba(255,255,255,0.42);
@@ -57,7 +67,7 @@
             font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Inter', 'Segoe UI', sans-serif;
         }
 
-        body, .card, .about-card, .link-item, .about-btn, .back-btn, .top-banner,
+        body, .card, .about-card, .link-item, .about-link, .back-btn, .top-banner,
         .stat-box, .chip, .step-num, .about-badge, .back-to-top, .event-card {
             transition: background-color 0.4s ease, border-color 0.4s ease, color 0.4s ease, box-shadow 0.4s ease;
         }
@@ -598,46 +608,33 @@
             .event-card:hover .event-arrow { color: #38bdf8; transform: translateX(3px); }
         }
 
-        /* ── ABOUT BTN ── */
-        .about-btn {
-            display: flex;
+        /* ── ABOUT LINK — a quiet pill near the footer, not a competing full-width CTA ── */
+        .about-link {
+            display: inline-flex;
             align-items: center;
-            gap: 10px;
-            width: 100%;
-            padding: 14px 18px;
-            margin: 0 0 14px;
-            background: var(--glass-bg);
+            gap: 6px;
+            padding: 8px 16px;
+            margin-bottom: 12px;
+            background: var(--glass-bg-soft);
             border: 1px solid var(--glass-border);
-            border-radius: 18px;
-            color: var(--text-primary);
-            font-size: 14px; font-weight: 600;
+            border-radius: 999px;
+            color: var(--text-secondary);
+            font-size: 12.5px;
+            font-weight: 600;
             cursor: pointer;
-            transition: background 0.2s, border-color 0.2s, transform 0.35s cubic-bezier(.22,1,.36,1);
-            will-change: transform;
-            backdrop-filter: blur(16px) saturate(180%);
-            -webkit-backdrop-filter: blur(16px) saturate(180%);
-            box-shadow: inset 0 1px 1px rgba(255,255,255,0.4);
-            animation: fadeUp 0.45s 0.42s ease both;
+            backdrop-filter: blur(14px) saturate(180%);
+            -webkit-backdrop-filter: blur(14px) saturate(180%);
+            transition: background 0.2s, border-color 0.2s, color 0.2s, transform 0.3s cubic-bezier(.22,1,.36,1);
             font-family: inherit;
             position: relative;
             overflow: hidden;
+            animation: fadeUp 0.45s 0.42s ease both;
         }
 
-        .about-btn:active { transform: scale(0.98) !important; }
+        .about-link:active { transform: scale(0.95) !important; }
 
         @media (hover: hover) {
-            .about-btn:hover { background: rgba(255,255,255,0.24); border-color: rgba(255,255,255,0.6); }
-            .about-btn:hover .btn-icon { transform: rotate(-8deg) scale(1.08); }
-        }
-
-        .btn-icon { transition: transform 0.35s cubic-bezier(.34,1.56,.64,1); }
-
-        .btn-icon {
-            width: 32px; height: 32px;
-            background: rgba(255,255,255,0.18);
-            border-radius: 10px;
-            display: flex; align-items: center; justify-content: center;
-            font-size: 14px;
+            .about-link:hover { background: rgba(255,255,255,0.22); border-color: rgba(255,255,255,0.5); color: var(--text-primary); }
         }
 
         /* ── FOOTER ── */
@@ -737,6 +734,39 @@
             gap: 9px; margin: 12px 0;
         }
 
+        .about-stats-2 { grid-template-columns: repeat(2, 1fr); }
+
+        /* ── Complain section — WhatsApp + Email as quick-tap buttons ── */
+        .complain-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 4px;
+        }
+        .contact-btn {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 7px;
+            padding: 11px 12px;
+            border-radius: 14px;
+            background: var(--glass-bg-soft);
+            border: 1px solid var(--glass-border);
+            color: var(--text-primary);
+            font-size: 12.5px;
+            font-weight: 700;
+            text-decoration: none;
+            font-family: inherit;
+            backdrop-filter: blur(10px) saturate(160%);
+            -webkit-backdrop-filter: blur(10px) saturate(160%);
+            transition: background 0.2s, border-color 0.2s, transform 0.3s cubic-bezier(.22,1,.36,1);
+            position: relative;
+            overflow: hidden;
+        }
+        .contact-btn:active { transform: scale(0.95) !important; }
+        @media (hover: hover) {
+            .contact-btn:hover { background: rgba(255,255,255,0.22); border-color: rgba(255,255,255,0.5); }
+        }
         .stat-box {
             background: rgba(255,255,255,0.14);
             backdrop-filter: blur(10px);
@@ -976,13 +1006,10 @@
             </div>
         </div>
 
-        <button class="about-btn tilt-glass" onclick="showAbout()">
-            <div class="btn-icon"><i class="fas fa-info-circle"></i></div>
-            <span>About This Link-Tree</span>
-            <i class="fas fa-chevron-right" style="margin-left:auto; font-size:12px; opacity:0.5;"></i>
-        </button>
-
         <div class="footer">
+            <button class="about-link tilt-glass" onclick="showAbout()">
+                <i class="fas fa-info-circle"></i> Tentang Link-Tree Ini
+            </button>
             <p>© 2026 Source Crocs · Dibuat dengan <i class="fas fa-heart" style="color:#f87171;"></i> oleh secureXXI</p>
             <p style="opacity:0.55; font-size:11px; margin-top:3px;">Terakhir diperbarui: <span id="currentDate"></span></p>
         </div>
@@ -1027,16 +1054,24 @@
             <hr class="about-divider">
             <div class="reveal-block">
                 <p class="about-section-title"><i class="fas fa-headset"></i> Complain?</p>
-                <p class="about-text" style="text-align:center;">📧 <strong>customerhelpsourcecrocs@gmail.com</strong></p>
+                <div class="complain-actions">
+                    <a href="https://wa.me/62895342072060" class="contact-btn tilt-glass" target="_blank" rel="noopener" data-toast="Membuka WhatsApp…">
+                        <i class="fab fa-whatsapp"></i> WhatsApp
+                    </a>
+                    <a href="mailto:customerhelpsourcecrocs@gmail.com" class="contact-btn tilt-glass" data-toast="Membuka Email…">
+                        <i class="fas fa-envelope"></i> Email
+                    </a>
+                </div>
             </div>
 
             <hr class="about-divider">
             <div class="reveal-block">
                 <p class="about-section-title"><i class="fas fa-code"></i> Tentang Website Ini</p>
-                <div class="about-stats">
-                    <div class="stat-box"><span class="stat-num">v4.0</span><span class="stat-label">Versi</span></div>
-                    <div class="stat-box"><span class="stat-num">2026</span><span class="stat-label">Tahun Rilis</span></div>
-                    <div class="stat-box"><span class="stat-num" style="font-size:12px;">secureXXI</span><span class="stat-label">Developer</span></div>
+                <div class="about-stats about-stats-2">
+                    <div class="stat-box"><span class="stat-num">v3.6</span><span class="stat-label">Versi</span></div>
+                    <div class="stat-box"><span class="stat-num">2025</span><span class="stat-label">Tahun Rilis</span></div>
+                    <div class="stat-box"><span class="stat-num" style="font-size:12px;">Open Eye's</span><span class="stat-label">Developer</span></div>
+                    <div class="stat-box"><span class="stat-num" style="font-size:13px;">Liquid Glass</span><span class="stat-label">Desain</span></div>
                 </div>
             </div>
 
@@ -1198,7 +1233,7 @@
 
         // ── Tactile feedback: ripple + icon pop on press, for every clickable glass surface ──
         (function () {
-            const pressables = document.querySelectorAll('.link-item, .event-card, .about-btn, .back-btn, .back-to-top');
+            const pressables = document.querySelectorAll('.link-item, .event-card, .about-link, .back-btn, .back-to-top, .contact-btn');
             pressables.forEach(el => {
                 el.addEventListener('pointerdown', (e) => {
                     playSound('tap');
@@ -1255,7 +1290,7 @@
             }
 
             document.querySelectorAll('.card, .about-card').forEach(el => attachTilt(el, 4));
-            document.querySelectorAll('.link-item, .event-card, .about-btn, .back-btn').forEach(el => attachTilt(el, 3));
+            document.querySelectorAll('.link-item, .event-card, .about-link, .back-btn, .contact-btn').forEach(el => attachTilt(el, 3));
         }
 
         // ── Swipe-right to go back, from About to Home (touch devices) ──
