@@ -22,16 +22,16 @@
                 radial-gradient(circle at 20% 88%, rgba(244,114,182,0.5), transparent 46%),
                 radial-gradient(circle at 92% 85%, rgba(79,140,255,0.55), transparent 42%),
                 linear-gradient(165deg, #2c0a7a 0%, #12358f 40%, #3d1fc4 65%, #7c6ef5 82%, #f2a8cc 100%);
-            --glass-bg:        rgba(255,255,255,0.14);
-            --glass-bg-strong: rgba(255,255,255,0.26);
-            --glass-bg-soft:   rgba(255,255,255,0.12);
+            --glass-bg:        rgba(255,255,255,0.09);
+            --glass-bg-strong: rgba(255,255,255,0.16);
+            --glass-bg-soft:   rgba(255,255,255,0.07);
             --glass-border:    rgba(255,255,255,0.38);
             --glass-highlight: rgba(255,255,255,0.55);
             --text-primary:    #ffffff;
             --text-secondary:  rgba(255,255,255,0.76);
             --text-tertiary:   rgba(255,255,255,0.58);
             --shadow-color:    rgba(4,2,20,0.35);
-            --island-bg:       rgba(8,6,26,0.55);
+            --island-bg:       rgba(8,6,26,0.4);
             --spotlight:       rgba(255,255,255,0.4);
         }
 
@@ -43,16 +43,16 @@
                     radial-gradient(circle at 15% 90%, rgba(249,168,212,0.4), transparent 46%),
                     radial-gradient(circle at 90% 88%, rgba(253,224,168,0.4), transparent 42%),
                     linear-gradient(165deg, #e3ecff 0%, #ece2ff 42%, #ffe6f3 74%, #fff4e3 100%);
-                --glass-bg:        rgba(255,255,255,0.5);
-                --glass-bg-strong: rgba(255,255,255,0.66);
-                --glass-bg-soft:   rgba(255,255,255,0.42);
+                --glass-bg:        rgba(255,255,255,0.35);
+                --glass-bg-strong: rgba(255,255,255,0.48);
+                --glass-bg-soft:   rgba(255,255,255,0.28);
                 --glass-border:    rgba(255,255,255,0.8);
                 --glass-highlight: rgba(255,255,255,0.9);
                 --text-primary:    #1c1c1e;
                 --text-secondary:  rgba(28,28,30,0.68);
                 --text-tertiary:   rgba(28,28,30,0.5);
                 --shadow-color:    rgba(60,50,110,0.18);
-                --island-bg:       rgba(255,255,255,0.6);
+                --island-bg:       rgba(255,255,255,0.42);
                 --spotlight:       rgba(255,255,255,0.7);
             }
         }
@@ -188,8 +188,8 @@
             z-index: 9999;
             max-width: min(92vw, 420px);
             background: var(--island-bg);
-            backdrop-filter: blur(14px) saturate(150%);
-            -webkit-backdrop-filter: blur(14px) saturate(150%);
+            backdrop-filter: blur(5px) saturate(140%);
+            -webkit-backdrop-filter: blur(5px) saturate(140%);
             border: 1px solid rgba(255,255,255,0.16);
             border-radius: 999px;
             padding: 9px 18px;
@@ -321,7 +321,7 @@
             bottom: 1px; right: 1px;
             width: 26px; height: 26px;
             background: rgba(255,255,255,0.35);
-            backdrop-filter: blur(6px);
+            backdrop-filter: blur(5px);
             border-radius: 50%;
             border: 1px solid rgba(255,255,255,0.6);
             display: flex; align-items: center; justify-content: center;
@@ -373,9 +373,9 @@
         .link-item {
             display: flex;
             align-items: center;
-            background: rgba(255,255,255,0.14);
-            backdrop-filter: blur(8px) saturate(140%);
-            -webkit-backdrop-filter: blur(8px) saturate(140%);
+            background: rgba(255,255,255,0.09);
+            backdrop-filter: blur(5px) saturate(140%);
+            -webkit-backdrop-filter: blur(5px) saturate(140%);
             border-radius: 18px;
             padding: 13px 16px;
             text-decoration: none;
@@ -401,8 +401,8 @@
         @media (hover: hover) {
             .link-item:hover {
                 border-color: rgba(255,255,255,0.55);
-                box-shadow: 0 12px 28px rgba(0,0,0,0.22), inset 0 1px 1px rgba(255,255,255,0.5);
-                background: rgba(255,255,255,0.22);
+                box-shadow: 0 12px 28px rgba(0,0,0,0.18), inset 0 1px 1px rgba(255,255,255,0.5);
+                background: rgba(255,255,255,0.16);
             }
         }
 
@@ -410,7 +410,7 @@
             width: 40px; height: 40px;
             border-radius: 12px;
             background: rgba(255,255,255,0.25);
-            backdrop-filter: blur(6px);
+            backdrop-filter: blur(5px);
             border: 1px solid rgba(255,255,255,0.35);
             display: flex; align-items: center; justify-content: center;
             font-size: 18px;
@@ -428,9 +428,9 @@
 
         /* Primary CTA — WhatsApp is the actual ordering channel, so it earns a distinct look */
         .link-item.primary {
-            background: rgba(37,211,102,0.16);
+            background: rgba(37,211,102,0.1);
             border-color: rgba(37,211,102,0.4);
-            box-shadow: 0 10px 26px rgba(0,0,0,0.18), inset 0 1px 1px rgba(255,255,255,0.4), 0 0 0 1px rgba(37,211,102,0.12);
+            box-shadow: 0 10px 26px rgba(0,0,0,0.15), inset 0 1px 1px rgba(255,255,255,0.35), 0 0 0 1px rgba(37,211,102,0.1);
         }
         .link-item.primary .link-icon { background: rgba(37,211,102,0.4); color: #fff; }
         @media (hover: hover) {
@@ -473,8 +473,8 @@
             display: flex;
             align-items: center;
             background: rgba(6,0,26,0.4);
-            backdrop-filter: blur(8px) saturate(140%);
-            -webkit-backdrop-filter: blur(8px) saturate(140%);
+            backdrop-filter: blur(5px) saturate(140%);
+            -webkit-backdrop-filter: blur(5px) saturate(140%);
             border-radius: 18px;
             padding: 14px 16px;
             text-decoration: none;
@@ -513,24 +513,24 @@
 
         .event-card:active { transform: scale(0.98) !important; }
 
-        .bolt {
+        .spooky {
             position: absolute;
             opacity: 0;
             pointer-events: none;
             filter: drop-shadow(0 0 5px #fb923c);
-            animation: boltFlash 3.5s ease-in-out infinite;
+            animation: spookyFlit 4s ease-in-out infinite;
             will-change: opacity, transform;
             font-size: 13px;
         }
-        .bolt-1 { top: 5px;    right: 48px; animation-delay: 0s; }
-        .bolt-2 { top: 4px;    right: 30px; animation-delay: 0.7s; font-size: 10px; }
-        .bolt-3 { bottom: 5px; right: 40px; animation-delay: 1.4s; font-size: 11px; }
+        .spooky-1 { top: 5px;    right: 48px; animation-delay: 0s; }
+        .spooky-2 { top: 4px;    right: 26px; animation-delay: 0.9s; font-size: 10px; }
+        .spooky-3 { bottom: 5px; right: 38px; animation-delay: 1.8s; font-size: 11px; }
 
-        @keyframes boltFlash {
-            0%,100%  { opacity:0; transform:translateY(0); }
-            15%,35%  { opacity:1; transform:translateY(-2px); }
-            25%      { opacity:0.3; }
-            45%      { opacity:0; }
+        @keyframes spookyFlit {
+            0%,100%  { opacity:0; transform: translate(0,0) rotate(0deg); }
+            15%,35%  { opacity:1; transform: translate(-3px,-2px) rotate(-8deg); }
+            25%      { opacity:0.3; transform: translate(2px,-3px) rotate(6deg); }
+            45%      { opacity:0; transform: translate(0,0) rotate(0deg); }
         }
 
         .event-icon {
@@ -595,8 +595,8 @@
             font-size: 12.5px;
             font-weight: 600;
             cursor: pointer;
-            backdrop-filter: blur(8px) saturate(140%);
-            -webkit-backdrop-filter: blur(8px) saturate(140%);
+            backdrop-filter: blur(5px) saturate(140%);
+            -webkit-backdrop-filter: blur(5px) saturate(140%);
             transition: background 0.2s, border-color 0.2s, color 0.2s, transform 0.3s cubic-bezier(.22,1,.36,1);
             font-family: inherit;
             position: relative;
@@ -607,7 +607,7 @@
         .about-link:active { transform: scale(0.95) !important; }
 
         @media (hover: hover) {
-            .about-link:hover { background: rgba(255,255,255,0.22); border-color: rgba(255,255,255,0.5); color: var(--text-primary); }
+            .about-link:hover { background: rgba(255,255,255,0.16); border-color: rgba(255,255,255,0.5); color: var(--text-primary); }
         }
 
         /* ── FOOTER ── */
@@ -626,8 +626,8 @@
             bottom: 24px; right: 16px;
             width: 44px; height: 44px;
             background: rgba(255,255,255,0.25);
-            backdrop-filter: blur(8px) saturate(140%);
-            -webkit-backdrop-filter: blur(8px) saturate(140%);
+            backdrop-filter: blur(5px) saturate(140%);
+            -webkit-backdrop-filter: blur(5px) saturate(140%);
             color: var(--text-primary); border: 1px solid rgba(255,255,255,0.45);
             border-radius: 50%;
             font-size: 16px; cursor: pointer;
@@ -670,7 +670,7 @@
         .about-badge {
             display: inline-block;
             background: rgba(255,255,255,0.22);
-            backdrop-filter: blur(6px);
+            backdrop-filter: blur(5px);
             border: 1px solid rgba(255,255,255,0.4);
             font-size: 10px; font-weight: 700;
             letter-spacing: 1.2px; text-transform: uppercase;
@@ -730,19 +730,19 @@
             font-weight: 700;
             text-decoration: none;
             font-family: inherit;
-            backdrop-filter: blur(6px) saturate(130%);
-            -webkit-backdrop-filter: blur(6px) saturate(130%);
+            backdrop-filter: blur(5px) saturate(140%);
+            -webkit-backdrop-filter: blur(5px) saturate(140%);
             transition: background 0.2s, border-color 0.2s, transform 0.3s cubic-bezier(.22,1,.36,1);
             position: relative;
             overflow: hidden;
         }
         .contact-btn:active { transform: scale(0.95) !important; }
         @media (hover: hover) {
-            .contact-btn:hover { background: rgba(255,255,255,0.22); border-color: rgba(255,255,255,0.5); }
+            .contact-btn:hover { background: rgba(255,255,255,0.16); border-color: rgba(255,255,255,0.5); }
         }
         .stat-box {
             background: rgba(255,255,255,0.14);
-            backdrop-filter: blur(6px);
+            backdrop-filter: blur(5px);
             border-radius: 14px;
             padding: 13px 8px;
             text-align: center;
@@ -803,9 +803,9 @@
             display: flex; align-items: center; justify-content: center; gap: 8px;
             width: 100%; padding: 14px;
             margin-top: 22px;
-            background: rgba(255,255,255,0.22);
-            backdrop-filter: blur(8px) saturate(140%);
-            -webkit-backdrop-filter: blur(8px) saturate(140%);
+            background: rgba(255,255,255,0.12);
+            backdrop-filter: blur(5px) saturate(140%);
+            -webkit-backdrop-filter: blur(5px) saturate(140%);
             color: var(--text-primary); border: 1px solid rgba(255,255,255,0.45);
             border-radius: 16px;
             font-size: 14.5px; font-weight: 700; cursor: pointer;
@@ -837,8 +837,8 @@
         }
         .toast {
             background: var(--island-bg);
-            backdrop-filter: blur(10px) saturate(140%);
-            -webkit-backdrop-filter: blur(10px) saturate(140%);
+            backdrop-filter: blur(5px) saturate(140%);
+            -webkit-backdrop-filter: blur(5px) saturate(140%);
             border: 1px solid rgba(255,255,255,0.18);
             border-radius: 14px;
             padding: 10px 18px;
@@ -863,9 +863,9 @@
             align-items: center;
             gap: 10px;
             max-width: 82vw;
-            background: rgba(249,115,22,0.14);
-            backdrop-filter: blur(8px) saturate(140%);
-            -webkit-backdrop-filter: blur(8px) saturate(140%);
+            background: rgba(249,115,22,0.09);
+            backdrop-filter: blur(5px) saturate(140%);
+            -webkit-backdrop-filter: blur(5px) saturate(140%);
             border: 1px solid rgba(249,115,22,0.4);
             border-radius: 20px;
             padding: 16px 22px;
@@ -873,8 +873,8 @@
             font-size: 14px;
             font-weight: 800;
             text-align: left;
-            text-shadow: 0 1px 6px rgba(0,0,0,0.45);
-            box-shadow: inset 0 1px 1px rgba(255,255,255,0.35), 0 22px 50px rgba(0,0,0,0.3), 0 0 24px -4px rgba(249,115,22,0.4);
+            text-shadow: 0 1px 6px rgba(0,0,0,0.5);
+            box-shadow: inset 0 1px 1px rgba(255,255,255,0.35), 0 12px 30px rgba(0,0,0,0.2), 0 0 18px -6px rgba(249,115,22,0.4);
             opacity: 0;
             pointer-events: none;
             transition: opacity 0.3s ease, transform 0.35s cubic-bezier(.34,1.56,.64,1);
@@ -994,9 +994,9 @@
 
                 <!-- Event Card -->
                 <a href="" class="event-card" id="eventCard" target="_blank" rel="noopener">
-                    <span class="bolt bolt-1">⚡</span>
-                    <span class="bolt bolt-2">⚡</span>
-                    <span class="bolt bolt-3">⚡</span>
+                    <span class="spooky spooky-1">🦇</span>
+                    <span class="spooky spooky-2">🦇</span>
+                    <span class="spooky spooky-3">🦇</span>
                     <div class="spotlayer"></div>
                     <div class="event-icon">🎃</div>
                     <div class="event-text">
