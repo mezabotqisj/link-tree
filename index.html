@@ -11,7 +11,7 @@
         :root {
             --purple:   #7c6ef5;
             --blue:     #4f8cff;
-            --electric: #38bdf8;
+            --electric: #fb923c;
             --indigo:   #6366f1;
             --pink:     #f5a3c7;
 
@@ -33,7 +33,6 @@
             --shadow-color:    rgba(4,2,20,0.35);
             --island-bg:       rgba(8,6,26,0.55);
             --spotlight:       rgba(255,255,255,0.4);
-            --grain-opacity:   0.035;
         }
 
         @media (prefers-color-scheme: light) {
@@ -55,7 +54,6 @@
                 --shadow-color:    rgba(60,50,110,0.18);
                 --island-bg:       rgba(255,255,255,0.6);
                 --spotlight:       rgba(255,255,255,0.7);
-                --grain-opacity:   0.02;
             }
         }
 
@@ -76,7 +74,6 @@
 
         body {
             background: var(--bg-gradient);
-            background-attachment: fixed;
             min-height: 100vh;
             display: flex;
             flex-direction: column;
@@ -89,8 +86,7 @@
         /* ── Layer stack (bottom → top) ──
            0  static gradient background
            1  cursor-reactive ambient light
-           2  grain texture
-           3  content container
+           2  content container
            9998 back-to-top
            9999 dynamic island banner
         */
@@ -108,17 +104,6 @@
             opacity: 0;
             transition: opacity 0.4s ease;
             will-change: transform;
-        }
-
-        /* Subtle grain, adds a hint of crystal texture across the whole scene */
-        .grain {
-            position: fixed; inset: -10%;
-            z-index: 4;
-            pointer-events: none;
-            opacity: var(--grain-opacity);
-            mix-blend-mode: overlay;
-            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-            background-size: 220px 220px;
         }
 
         @keyframes fadeUp {
@@ -203,8 +188,8 @@
             z-index: 9999;
             max-width: min(92vw, 420px);
             background: var(--island-bg);
-            backdrop-filter: blur(22px) saturate(200%);
-            -webkit-backdrop-filter: blur(22px) saturate(200%);
+            backdrop-filter: blur(14px) saturate(150%);
+            -webkit-backdrop-filter: blur(14px) saturate(150%);
             border: 1px solid rgba(255,255,255,0.16);
             border-radius: 999px;
             padding: 9px 18px;
@@ -262,8 +247,8 @@
         /* ── Shared liquid glass surface ── */
         .card, .about-card {
             background: var(--glass-bg);
-            backdrop-filter: blur(26px) saturate(180%);
-            -webkit-backdrop-filter: blur(26px) saturate(180%);
+            backdrop-filter: blur(10px) saturate(150%);
+            -webkit-backdrop-filter: blur(10px) saturate(150%);
             border: 1px solid var(--glass-border);
             border-radius: 28px;
             box-shadow:
@@ -336,7 +321,7 @@
             bottom: 1px; right: 1px;
             width: 26px; height: 26px;
             background: rgba(255,255,255,0.35);
-            backdrop-filter: blur(10px);
+            backdrop-filter: blur(6px);
             border-radius: 50%;
             border: 1px solid rgba(255,255,255,0.6);
             display: flex; align-items: center; justify-content: center;
@@ -350,18 +335,6 @@
             letter-spacing: -0.4px;
             margin-bottom: 8px;
             text-shadow: 0 1px 8px rgba(0,0,0,0.15);
-        }
-
-        /* Decorative perforation strip — a quiet nod to Crocs' own ventilation holes */
-        .croc-holes {
-            width: 128px;
-            height: 12px;
-            margin: 0 auto 12px;
-            border-radius: 20px;
-            background-image: radial-gradient(circle, rgba(255,255,255,0.55) 2.6px, transparent 3px);
-            background-size: 16px 16px;
-            background-position: center;
-            opacity: 0.55;
         }
 
         .bio {
@@ -401,8 +374,8 @@
             display: flex;
             align-items: center;
             background: rgba(255,255,255,0.14);
-            backdrop-filter: blur(16px) saturate(180%);
-            -webkit-backdrop-filter: blur(16px) saturate(180%);
+            backdrop-filter: blur(8px) saturate(140%);
+            -webkit-backdrop-filter: blur(8px) saturate(140%);
             border-radius: 18px;
             padding: 13px 16px;
             text-decoration: none;
@@ -437,7 +410,7 @@
             width: 40px; height: 40px;
             border-radius: 12px;
             background: rgba(255,255,255,0.25);
-            backdrop-filter: blur(10px);
+            backdrop-filter: blur(6px);
             border: 1px solid rgba(255,255,255,0.35);
             display: flex; align-items: center; justify-content: center;
             font-size: 18px;
@@ -500,13 +473,13 @@
             display: flex;
             align-items: center;
             background: rgba(6,0,26,0.4);
-            backdrop-filter: blur(18px) saturate(180%);
-            -webkit-backdrop-filter: blur(18px) saturate(180%);
+            backdrop-filter: blur(8px) saturate(140%);
+            -webkit-backdrop-filter: blur(8px) saturate(140%);
             border-radius: 18px;
             padding: 14px 16px;
             text-decoration: none;
             color: white;
-            border: 1px solid rgba(56,189,248,0.4);
+            border: 1px solid rgba(249,115,22,0.45);
             box-shadow: 0 6px 20px rgba(0,0,0,0.35), inset 0 1px 0 rgba(255,255,255,0.08);
             position: relative;
             overflow: hidden;
@@ -520,21 +493,21 @@
             content: '';
             position: absolute;
             top: 0; left: 0; right: 0; height: 1.5px;
-            background: linear-gradient(90deg, transparent, #38bdf8, transparent);
+            background: linear-gradient(90deg, transparent, #fb923c, transparent);
             animation: scanPulse 2.5s ease-in-out infinite;
         }
         @keyframes scanPulse { 0%,100%{opacity:0.25} 50%{opacity:1} }
 
         .event-card > .spotlayer {
             position: absolute; inset: 0;
-            background: radial-gradient(ellipse at 80% 50%, rgba(56,189,248,0.1), transparent 60%);
+            background: radial-gradient(ellipse at 80% 50%, rgba(249,115,22,0.12), transparent 60%);
             pointer-events: none;
         }
 
         @media (hover: hover) {
             .event-card:hover {
-                border-color: rgba(56,189,248,0.75);
-                box-shadow: 0 14px 32px rgba(0,0,0,0.5), 0 0 24px rgba(56,189,248,0.25);
+                border-color: rgba(249,115,22,0.8);
+                box-shadow: 0 14px 32px rgba(0,0,0,0.5), 0 0 24px rgba(249,115,22,0.3);
             }
         }
 
@@ -544,7 +517,7 @@
             position: absolute;
             opacity: 0;
             pointer-events: none;
-            filter: drop-shadow(0 0 5px #38bdf8);
+            filter: drop-shadow(0 0 5px #fb923c);
             animation: boltFlash 3.5s ease-in-out infinite;
             will-change: opacity, transform;
             font-size: 13px;
@@ -563,8 +536,8 @@
         .event-icon {
             width: 44px; height: 44px;
             border-radius: 14px;
-            background: rgba(56,189,248,0.12);
-            border: 1px solid rgba(56,189,248,0.3);
+            background: rgba(249,115,22,0.16);
+            border: 1px solid rgba(249,115,22,0.35);
             display: flex; align-items: center; justify-content: center;
             font-size: 20px;
             margin-right: 13px;
@@ -573,15 +546,15 @@
             animation: iconPulse 2.5s ease-in-out infinite;
         }
         @keyframes iconPulse {
-            0%,100% { box-shadow: 0 0 0 0 rgba(56,189,248,0.4); }
-            50%      { box-shadow: 0 0 0 6px rgba(56,189,248,0); }
+            0%,100% { box-shadow: 0 0 0 0 rgba(249,115,22,0.45); }
+            50%      { box-shadow: 0 0 0 6px rgba(249,115,22,0); }
         }
 
         .event-text { flex:1; text-align:left; position:relative; z-index:1; }
 
         .event-badge {
             display: inline-block;
-            background: linear-gradient(135deg, #ef4444, #f97316);
+            background: linear-gradient(135deg, #f97316, #fb923c);
             color: white;
             font-size: 9px; font-weight: 800;
             letter-spacing: 1px; text-transform: uppercase;
@@ -592,20 +565,20 @@
         .event-title {
             font-size: 14px; font-weight: 800;
             color: #fff;
-            text-shadow: 0 0 10px rgba(56,189,248,0.7);
+            text-shadow: 0 0 10px rgba(249,115,22,0.75);
             margin-bottom: 2px;
         }
 
-        .event-desc { font-size: 11px; color: rgba(56,189,248,0.85); }
+        .event-desc { font-size: 11px; color: rgba(255,167,89,0.9); }
 
         .event-arrow {
             font-size: 12px;
-            color: rgba(56,189,248,0.45);
+            color: rgba(249,115,22,0.55);
             transition: color 0.2s, transform 0.2s;
             position: relative; z-index: 1;
         }
         @media (hover: hover) {
-            .event-card:hover .event-arrow { color: #38bdf8; transform: translateX(3px); }
+            .event-card:hover .event-arrow { color: #fb923c; transform: translateX(3px); }
         }
 
         /* ── ABOUT LINK — a quiet pill near the footer, not a competing full-width CTA ── */
@@ -622,8 +595,8 @@
             font-size: 12.5px;
             font-weight: 600;
             cursor: pointer;
-            backdrop-filter: blur(14px) saturate(180%);
-            -webkit-backdrop-filter: blur(14px) saturate(180%);
+            backdrop-filter: blur(8px) saturate(140%);
+            -webkit-backdrop-filter: blur(8px) saturate(140%);
             transition: background 0.2s, border-color 0.2s, color 0.2s, transform 0.3s cubic-bezier(.22,1,.36,1);
             font-family: inherit;
             position: relative;
@@ -653,8 +626,8 @@
             bottom: 24px; right: 16px;
             width: 44px; height: 44px;
             background: rgba(255,255,255,0.25);
-            backdrop-filter: blur(16px) saturate(180%);
-            -webkit-backdrop-filter: blur(16px) saturate(180%);
+            backdrop-filter: blur(8px) saturate(140%);
+            -webkit-backdrop-filter: blur(8px) saturate(140%);
             color: var(--text-primary); border: 1px solid rgba(255,255,255,0.45);
             border-radius: 50%;
             font-size: 16px; cursor: pointer;
@@ -697,7 +670,7 @@
         .about-badge {
             display: inline-block;
             background: rgba(255,255,255,0.22);
-            backdrop-filter: blur(10px);
+            backdrop-filter: blur(6px);
             border: 1px solid rgba(255,255,255,0.4);
             font-size: 10px; font-weight: 700;
             letter-spacing: 1.2px; text-transform: uppercase;
@@ -757,8 +730,8 @@
             font-weight: 700;
             text-decoration: none;
             font-family: inherit;
-            backdrop-filter: blur(10px) saturate(160%);
-            -webkit-backdrop-filter: blur(10px) saturate(160%);
+            backdrop-filter: blur(6px) saturate(130%);
+            -webkit-backdrop-filter: blur(6px) saturate(130%);
             transition: background 0.2s, border-color 0.2s, transform 0.3s cubic-bezier(.22,1,.36,1);
             position: relative;
             overflow: hidden;
@@ -769,7 +742,7 @@
         }
         .stat-box {
             background: rgba(255,255,255,0.14);
-            backdrop-filter: blur(10px);
+            backdrop-filter: blur(6px);
             border-radius: 14px;
             padding: 13px 8px;
             text-align: center;
@@ -808,7 +781,7 @@
         .step-num {
             width: 22px; height: 22px;
             background: rgba(255,255,255,0.25);
-            backdrop-filter: blur(8px);
+            backdrop-filter: blur(5px);
             border: 1px solid rgba(255,255,255,0.4);
             color: var(--text-primary); border-radius: 50%;
             display: flex; align-items: center; justify-content: center;
@@ -819,7 +792,7 @@
 
         .chip {
             background: rgba(255,255,255,0.18);
-            backdrop-filter: blur(8px);
+            backdrop-filter: blur(5px);
             color: var(--text-primary);
             font-size: 11.5px; font-weight: 600;
             padding: 4px 11px; border-radius: 20px;
@@ -831,8 +804,8 @@
             width: 100%; padding: 14px;
             margin-top: 22px;
             background: rgba(255,255,255,0.22);
-            backdrop-filter: blur(16px) saturate(180%);
-            -webkit-backdrop-filter: blur(16px) saturate(180%);
+            backdrop-filter: blur(8px) saturate(140%);
+            -webkit-backdrop-filter: blur(8px) saturate(140%);
             color: var(--text-primary); border: 1px solid rgba(255,255,255,0.45);
             border-radius: 16px;
             font-size: 14.5px; font-weight: 700; cursor: pointer;
@@ -864,8 +837,8 @@
         }
         .toast {
             background: var(--island-bg);
-            backdrop-filter: blur(20px) saturate(200%);
-            -webkit-backdrop-filter: blur(20px) saturate(200%);
+            backdrop-filter: blur(10px) saturate(140%);
+            -webkit-backdrop-filter: blur(10px) saturate(140%);
             border: 1px solid rgba(255,255,255,0.18);
             border-radius: 14px;
             padding: 10px 18px;
@@ -879,6 +852,38 @@
         .toast.out { animation: toastOut 0.3s ease forwards; }
         @keyframes toastIn { from { opacity: 0; transform: translateY(10px) scale(0.9); } to { opacity: 1; transform: translateY(0) scale(1); } }
         @keyframes toastOut { to { opacity: 0; transform: translateY(-8px) scale(0.95); } }
+
+        /* ── Center notice — Halloween-orange popup for the not-yet-linked event card ── */
+        .center-notice {
+            position: fixed;
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%) scale(0.85);
+            z-index: 10001;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            max-width: 82vw;
+            background: rgba(249,115,22,0.14);
+            backdrop-filter: blur(8px) saturate(140%);
+            -webkit-backdrop-filter: blur(8px) saturate(140%);
+            border: 1px solid rgba(249,115,22,0.4);
+            border-radius: 20px;
+            padding: 16px 22px;
+            color: #fff;
+            font-size: 14px;
+            font-weight: 800;
+            text-align: left;
+            text-shadow: 0 1px 6px rgba(0,0,0,0.45);
+            box-shadow: inset 0 1px 1px rgba(255,255,255,0.35), 0 22px 50px rgba(0,0,0,0.3), 0 0 24px -4px rgba(249,115,22,0.4);
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease, transform 0.35s cubic-bezier(.34,1.56,.64,1);
+        }
+        .center-notice.show {
+            opacity: 1;
+            transform: translate(-50%, -50%) scale(1);
+        }
+        .center-notice i { font-size: 20px; flex-shrink: 0; }
 
         /* ── Accessibility: visible focus ring everywhere ── */
         a:focus-visible, button:focus-visible {
@@ -916,7 +921,6 @@
         <span class="preloader-word">source.crocs</span>
     </div>
 
-    <div class="grain" aria-hidden="true"></div>
     <div id="cursorGlow" aria-hidden="true"></div>
 
     <!-- DYNAMIC ISLAND BANNER -->
@@ -935,7 +939,6 @@
                 <div class="profile-badge"><i class="fas fa-check"></i></div>
             </div>
             <h1>source.crocs</h1>
-            <div class="croc-holes"></div>
             <p class="bio">
                 <span class="bio-dot"></span>
                 source.crocs Link-Tree
@@ -990,16 +993,16 @@
                 </a>
 
                 <!-- Event Card -->
-                <a href="https://mezabotsourcecrocs.github.io/super-lucky-draw/" class="event-card" target="_blank" rel="noopener" data-toast="Membuka Super Lucky Draw…">
+                <a href="" class="event-card" id="eventCard" target="_blank" rel="noopener">
                     <span class="bolt bolt-1">⚡</span>
                     <span class="bolt bolt-2">⚡</span>
                     <span class="bolt bolt-3">⚡</span>
                     <div class="spotlayer"></div>
-                    <div class="event-icon">🎰</div>
+                    <div class="event-icon">🎃</div>
                     <div class="event-text">
-                        <span class="event-badge">🔴 Live Event</span>
-                        <div class="event-title">Super Lucky Draw</div>
-                        <div class="event-desc">Spin &amp; menangkan hadiah spesial!</div>
+                        <span class="event-badge">🎃 Upcoming Event</span>
+                        <div class="event-title">Upcoming Event</div>
+                        <div class="event-desc">Upcoming &amp; Upcoming Event</div>
                     </div>
                     <i class="fas fa-chevron-right event-arrow"></i>
                 </a>
@@ -1087,6 +1090,11 @@
 
     <div class="toast-stack" id="toastStack" aria-live="polite"></div>
 
+    <div class="center-notice" id="centerNotice" role="status" aria-live="polite">
+        <i class="fas fa-ghost"></i>
+        <span id="centerNoticeText"></span>
+    </div>
+
     <script>
         const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
         const canHover = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
@@ -1143,6 +1151,25 @@
         document.querySelectorAll('[data-toast]').forEach(el => {
             el.addEventListener('click', () => showToast(el.dataset.toast));
         });
+
+        // ── Center notice — Halloween-orange popup for the event card while it has no link yet ──
+        const centerNotice = document.getElementById('centerNotice');
+        const centerNoticeText = document.getElementById('centerNoticeText');
+        let centerNoticeTimer = null;
+        function showCenterNotice(text, duration = 2400) {
+            centerNoticeText.textContent = text;
+            centerNotice.classList.add('show');
+            clearTimeout(centerNoticeTimer);
+            centerNoticeTimer = setTimeout(() => centerNotice.classList.remove('show'), duration);
+        }
+
+        const eventCard = document.getElementById('eventCard');
+        if (eventCard && !eventCard.getAttribute('href')) {
+            eventCard.addEventListener('click', (e) => {
+                e.preventDefault();
+                showCenterNotice('Halloween Run Event Is Coming!');
+            });
+        }
 
         // ── Count-up animation for numeric stats, runs once when a stat-box enters view ──
         function countUp(el, target, suffix, duration) {
