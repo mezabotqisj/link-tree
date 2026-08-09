@@ -66,7 +66,7 @@
         }
 
         body, .card, .about-card, .link-item, .about-link, .back-btn, .top-banner,
-        .stat-box, .chip, .step-num, .about-badge, .back-to-top, .event-card {
+        .stat-box, .chip, .about-badge, .back-to-top, .event-card {
             transition: background-color 0.4s ease, border-color 0.4s ease, color 0.4s ease, box-shadow 0.4s ease;
         }
 
@@ -143,12 +143,6 @@
             100% { transform: scale(1); }
         }
         .press-bounce { animation: pressBounce 0.32s cubic-bezier(.34,1.56,.64,1); }
-
-        @keyframes floatY {
-            0%, 100% { transform: translateY(0); }
-            50%      { transform: translateY(-5px); }
-        }
-        .profile-wrap { animation: floatY 5.5s ease-in-out infinite; }
 
         /* ── Preloader — quick crystal reveal, gone before it can annoy anyone ── */
         #preloader {
@@ -767,27 +761,6 @@
 
         .stat-box .stat-label { font-size: 10px; color: var(--text-tertiary); margin-top: 3px; display: block; }
 
-        .step-list { list-style: none; text-align: left; }
-
-        .step-list li {
-            display: flex; align-items: flex-start; gap: 11px;
-            padding: 9px 0;
-            border-bottom: 1px solid rgba(255,255,255,0.15);
-            font-size: 13.5px; color: var(--text-secondary);
-        }
-
-        .step-list li:last-child { border-bottom: none; }
-
-        .step-num {
-            width: 22px; height: 22px;
-            background: rgba(255,255,255,0.25);
-            backdrop-filter: blur(5px);
-            border: 1px solid rgba(255,255,255,0.4);
-            color: var(--text-primary); border-radius: 50%;
-            display: flex; align-items: center; justify-content: center;
-            font-size: 10px; font-weight: 800; flex-shrink: 0; margin-top: 1px;
-        }
-
         .tech-chips { display: flex; flex-wrap: wrap; gap: 7px; margin-top: 10px; justify-content: center; }
 
         .chip {
@@ -1030,7 +1003,7 @@
             <hr class="about-divider">
             <div class="reveal-block">
                 <p class="about-section-title"><i class="fas fa-store"></i> Tentang Kami</p>
-                <p class="about-text">Source Crocs adalah toko yang menyediakan produk Crocs Original Reject dengan harga terjangkau. Beroperasi secara online melalui sistem Pre-Order untuk memastikan setiap produk original dan berkualitas tinggi.</p>
+                <p class="about-text">Source Crocs adalah toko yang menyediakan produk Crocs Original Reject yang tidak lolos Quality Control dengan harga terjangkau. Beroperasi secara online melalui sistem Pre-Order untuk memastikan setiap produk original dan berkualitas tinggi.</p>
             </div>
 
             <hr class="about-divider">
@@ -1041,17 +1014,6 @@
                     <div class="stat-box"><span class="stat-num">5-10 Mnt</span><span class="stat-label">Balas Chat</span></div>
                     <div class="stat-box"><span class="stat-num" data-count="100" data-suffix="%">0%</span><span class="stat-label">Authentic</span></div>
                 </div>
-            </div>
-
-            <hr class="about-divider">
-            <div class="reveal-block">
-                <p class="about-section-title"><i class="fas fa-clipboard-list"></i> Cara Pemesanan</p>
-                <ul class="step-list">
-                    <li><span class="step-num">1</span> Hubungi kami via WhatsApp</li>
-                    <li><span class="step-num">2</span> Pilih model &amp; ukuran yang diinginkan</li>
-                    <li><span class="step-num">3</span> Lakukan pembayaran DP atau Full</li>
-                    <li><span class="step-num">4</span> Tunggu konfirmasi &amp; estimasi pengiriman</li>
-                </ul>
             </div>
 
             <hr class="about-divider">
