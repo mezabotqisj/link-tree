@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Source Crocs</title>
+    <meta name="description" content="Source Crocs — toko Crocs Original Reject dengan harga terjangkau. Pre-Order via WhatsApp, cek juga Instagram, TikTok & Shopee kami di sini.">
     <meta name="theme-color" content="#3d0f9e">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
@@ -296,7 +297,13 @@
         .profile-img:hover { transform: scale(1.06); }
 
         /* Skeleton shimmer while the profile image loads */
-        .img-fade { opacity: 0; filter: blur(10px); transition: opacity 0.5s ease, filter 0.5s ease; }
+        .img-fade {
+            opacity: 0; filter: blur(10px); transition: opacity 0.5s ease, filter 0.5s ease;
+            -webkit-touch-callout: none;
+            -webkit-user-select: none;
+            user-select: none;
+            -webkit-user-drag: none;
+        }
         .img-fade.loaded { opacity: 1; filter: blur(0); }
         .profile-wrap.loading::after, .about-logo-wrap.loading::after {
             content: '';
@@ -908,7 +915,7 @@
     <div class="container" id="homePage">
         <div class="card tilt-glass">
             <div class="profile-wrap loading" id="profileWrap">
-                <img src="3.png" class="profile-img img-fade" alt="Source Crocs" id="profileImg">
+                <img src="3.png" class="profile-img img-fade" alt="Source Crocs" id="profileImg" draggable="false" oncontextmenu="return false">
                 <div class="profile-badge"><i class="fas fa-check"></i></div>
             </div>
             <h1>source.crocs</h1>
@@ -986,7 +993,7 @@
             <button class="about-link tilt-glass" onclick="showAbout()">
                 <i class="fas fa-info-circle"></i> Tentang Link-Tree Ini
             </button>
-            <p>© 2026 Source Crocs · Dibuat dengan <i class="fas fa-heart" style="color:#f87171;"></i> oleh secureXXI</p>
+            <p>© 2026 Source Crocs · Dibuat dengan <i class="fas fa-heart" style="color:#f87171;"></i> oleh SRC Developer</p>
             <p style="opacity:0.55; font-size:11px; margin-top:3px;">Terakhir diperbarui: <span id="currentDate"></span></p>
         </div>
     </div>
@@ -995,7 +1002,7 @@
     <div id="aboutPage">
         <div class="about-card tilt-glass">
             <div class="about-logo-wrap loading" id="aboutLogoWrap">
-                <img src="3.png" class="about-logo img-fade" alt="Source Crocs" id="aboutLogoImg">
+                <img src="3.png" class="about-logo img-fade" alt="Source Crocs" id="aboutLogoImg" draggable="false" oncontextmenu="return false">
             </div>
             <h2>source.crocs</h2>
             <span class="about-badge">✦ Authentic Store ✦</span>
@@ -1035,7 +1042,7 @@
                 <div class="about-stats about-stats-2">
                     <div class="stat-box"><span class="stat-num">v3.6</span><span class="stat-label">Versi</span></div>
                     <div class="stat-box"><span class="stat-num">2025</span><span class="stat-label">Tahun Rilis</span></div>
-                    <div class="stat-box"><span class="stat-num" style="font-size:12px;">Open Eye's</span><span class="stat-label">Developer</span></div>
+                    <div class="stat-box"><span class="stat-num" style="font-size:12px;">SRC Developer</span><span class="stat-label">Developer</span></div>
                     <div class="stat-box"><span class="stat-num" style="font-size:13px;">Liquid Glass</span><span class="stat-label">Desain</span></div>
                 </div>
             </div>
