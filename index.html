@@ -18,11 +18,9 @@
 
             /* Liquid Glass — mode gelap (default) */
             --bg-gradient:
-                radial-gradient(circle at 12% 12%, rgba(139,92,246,0.65), transparent 42%),
-                radial-gradient(circle at 88% 18%, rgba(56,189,248,0.55), transparent 44%),
-                radial-gradient(circle at 20% 88%, rgba(244,114,182,0.5), transparent 46%),
-                radial-gradient(circle at 92% 85%, rgba(79,140,255,0.55), transparent 42%),
-                linear-gradient(165deg, #2c0a7a 0%, #12358f 40%, #3d1fc4 65%, #7c6ef5 82%, #f2a8cc 100%);
+                radial-gradient(circle at 15% 10%, rgba(99,102,241,0.32), transparent 50%),
+                radial-gradient(circle at 85% 90%, rgba(79,70,229,0.28), transparent 50%),
+                linear-gradient(165deg, #1a1230 0%, #221b3d 45%, #2b2350 100%);
             --glass-bg:        rgba(255,255,255,0.09);
             --glass-bg-strong: rgba(255,255,255,0.16);
             --glass-bg-soft:   rgba(255,255,255,0.07);
@@ -39,11 +37,9 @@
         @media (prefers-color-scheme: light) {
             :root {
                 --bg-gradient:
-                    radial-gradient(circle at 12% 10%, rgba(167,139,250,0.4), transparent 42%),
-                    radial-gradient(circle at 90% 15%, rgba(125,211,252,0.4), transparent 44%),
-                    radial-gradient(circle at 15% 90%, rgba(249,168,212,0.4), transparent 46%),
-                    radial-gradient(circle at 90% 88%, rgba(253,224,168,0.4), transparent 42%),
-                    linear-gradient(165deg, #e3ecff 0%, #ece2ff 42%, #ffe6f3 74%, #fff4e3 100%);
+                    radial-gradient(circle at 15% 10%, rgba(199,193,247,0.35), transparent 50%),
+                    radial-gradient(circle at 85% 90%, rgba(219,214,250,0.3), transparent 50%),
+                    linear-gradient(165deg, #f3f2fa 0%, #eeecf7 50%, #f5f3fb 100%);
                 --glass-bg:        rgba(255,255,255,0.35);
                 --glass-bg-strong: rgba(255,255,255,0.48);
                 --glass-bg-soft:   rgba(255,255,255,0.28);
@@ -86,26 +82,10 @@
 
         /* ── Layer stack (bottom → top) ──
            0  static gradient background
-           1  cursor-reactive ambient light
-           2  content container
+           1  content container
            9998 back-to-top
            9999 dynamic island banner
         */
-
-        /* Cursor-reactive ambient light (desktop only) */
-        #cursorGlow {
-            position: fixed;
-            top: 0; left: 0;
-            width: 480px; height: 480px;
-            margin: -240px 0 0 -240px;
-            border-radius: 50%;
-            background: radial-gradient(circle, rgba(255,255,255,0.16), transparent 68%);
-            pointer-events: none;
-            z-index: 1;
-            opacity: 0;
-            transition: opacity 0.4s ease;
-            will-change: transform;
-        }
 
         @keyframes fadeUp {
             from { opacity:0; transform:translateY(22px) scale(0.98); filter:blur(6px); }
@@ -268,18 +248,6 @@
             position: relative;
             display: inline-block;
             margin-bottom: 16px;
-        }
-
-        .profile-wrap::before {
-            content: '';
-            position: absolute;
-            inset: -7px;
-            border-radius: 50%;
-            background: conic-gradient(from 0deg, var(--electric), var(--purple), var(--pink), var(--electric));
-            filter: blur(7px);
-            opacity: 0.6;
-            animation: spinRing 7s linear infinite;
-            z-index: -1;
         }
 
         @keyframes spinRing { to { transform: rotate(360deg); } }
@@ -669,19 +637,21 @@
         .about-card h2 { font-size: 19px; font-weight: 800; color: var(--text-primary); margin-bottom: 6px; }
 
         .about-badge {
-            display: inline-block;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
             background: rgba(255,255,255,0.22);
             backdrop-filter: blur(5px);
             border: 1px solid rgba(255,255,255,0.4);
             font-size: 10px; font-weight: 700;
             letter-spacing: 1.2px; text-transform: uppercase;
-            padding: 4px 12px; border-radius: 20px; margin-bottom: 20px;
+            padding: 5px 14px; border-radius: 20px; margin-bottom: 22px;
             color: var(--text-primary);
         }
 
         .about-divider {
             height: 12px;
-            margin: 16px 0;
+            margin: 18px 0;
             border: none;
             background-image: radial-gradient(circle, rgba(255,255,255,0.32) 1.6px, transparent 2px);
             background-size: 12px 12px;
@@ -691,10 +661,21 @@
         }
 
         .about-section-title {
-            font-size: 10px; font-weight: 700;
+            font-size: 10.5px; font-weight: 700;
             letter-spacing: 1.5px; text-transform: uppercase;
-            color: var(--text-secondary); margin-bottom: 9px;
-            display: flex; align-items: center; gap: 6px; text-align: left;
+            color: var(--text-secondary); margin-bottom: 11px;
+            display: flex; align-items: center; gap: 9px; text-align: left;
+        }
+
+        .section-icon-chip {
+            width: 24px; height: 24px;
+            border-radius: 8px;
+            background: rgba(255,255,255,0.14);
+            border: 1px solid rgba(255,255,255,0.22);
+            display: flex; align-items: center; justify-content: center;
+            font-size: 11px;
+            color: var(--text-primary);
+            flex-shrink: 0;
         }
 
         .about-text {
@@ -745,14 +726,21 @@
             background: rgba(255,255,255,0.14);
             backdrop-filter: blur(5px);
             border-radius: 14px;
-            padding: 13px 8px;
+            padding: 15px 8px 13px;
             text-align: center;
             border: 1px solid rgba(255,255,255,0.28);
+            box-shadow: inset 0 1px 1px rgba(255,255,255,0.25);
             opacity: 0;
             transform: translateY(10px);
             transition: opacity 0.5s ease, transform 0.5s cubic-bezier(.22,1,.36,1);
         }
         .stat-box.in-view { opacity: 1; transform: translateY(0); }
+        .stat-icon {
+            display: block;
+            font-size: 13px;
+            color: var(--text-tertiary);
+            margin-bottom: 6px;
+        }
 
         .reveal-block {
             opacity: 0;
@@ -875,7 +863,6 @@
         /* ── Reduced motion: keep it calm ── */
         @media (prefers-reduced-motion: reduce) {
             *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; scroll-behavior: auto !important; }
-            .profile-wrap::before { animation: none; }
             .banner-text { animation: none; padding-left: 0; }
             .card, .about-card { transform: none !important; }
             .profile-wrap.loading::after, .about-logo-wrap.loading::after { animation: none; }
@@ -889,7 +876,6 @@
             .profile-img { width: 88px; height: 88px; }
             h1 { font-size: 20px; }
             .about-stats { grid-template-columns: 1fr; }
-            #cursorGlow { display: none; }
         }
     </style>
 </head>
@@ -900,8 +886,6 @@
         <div class="preloader-ring"></div>
         <span class="preloader-word">source.crocs</span>
     </div>
-
-    <div id="cursorGlow" aria-hidden="true"></div>
 
     <!-- DYNAMIC ISLAND BANNER -->
     <div class="top-banner" id="topBanner" role="status">
@@ -1005,27 +989,27 @@
                 <img src="3.png" class="about-logo img-fade" alt="Source Crocs" id="aboutLogoImg" draggable="false" oncontextmenu="return false">
             </div>
             <h2>source.crocs</h2>
-            <span class="about-badge">✦ Authentic Store ✦</span>
+            <span class="about-badge"><i class="fas fa-shield-halved"></i> Authentic Store</span>
 
             <hr class="about-divider">
             <div class="reveal-block">
-                <p class="about-section-title"><i class="fas fa-store"></i> Tentang Kami</p>
+                <p class="about-section-title"><span class="section-icon-chip"><i class="fas fa-store"></i></span> Tentang Kami</p>
                 <p class="about-text">Source Crocs adalah toko yang menyediakan produk Crocs Original Reject yang tidak lolos Quality Control dengan harga terjangkau. Beroperasi secara online melalui sistem Pre-Order untuk memastikan setiap produk original dan berkualitas tinggi.</p>
             </div>
 
             <hr class="about-divider">
             <div class="reveal-block">
-                <p class="about-section-title"><i class="fas fa-trophy"></i> Ke-Unggulan Kami</p>
+                <p class="about-section-title"><span class="section-icon-chip"><i class="fas fa-trophy"></i></span> Ke-Unggulan Kami</p>
                 <div class="about-stats">
-                    <div class="stat-box"><span class="stat-num" data-count="300" data-suffix="+">0+</span><span class="stat-label">Pesanan</span></div>
-                    <div class="stat-box"><span class="stat-num">10-20 Mnt</span><span class="stat-label">Balas Chat</span></div>
-                    <div class="stat-box"><span class="stat-num" data-count="100" data-suffix="%">0%</span><span class="stat-label">Authentic</span></div>
+                    <div class="stat-box"><i class="fas fa-box-open stat-icon"></i><span class="stat-num" data-count="300" data-suffix="+">0+</span><span class="stat-label">Pesanan</span></div>
+                    <div class="stat-box"><i class="fas fa-bolt stat-icon"></i><span class="stat-num">10-20 Mnt</span><span class="stat-label">Balas Chat</span></div>
+                    <div class="stat-box"><i class="fas fa-circle-check stat-icon"></i><span class="stat-num" data-count="100" data-suffix="%">0%</span><span class="stat-label">Authentic</span></div>
                 </div>
             </div>
 
             <hr class="about-divider">
             <div class="reveal-block">
-                <p class="about-section-title"><i class="fas fa-headset"></i> Complain?</p>
+                <p class="about-section-title"><span class="section-icon-chip"><i class="fas fa-headset"></i></span> Complain?</p>
                 <div class="complain-actions">
                     <a href="https://wa.me/62895342072060" class="contact-btn tilt-glass" target="_blank" rel="noopener" data-toast="Membuka WhatsApp…">
                         <i class="fab fa-whatsapp"></i> WhatsApp
@@ -1038,10 +1022,10 @@
 
             <hr class="about-divider">
             <div class="reveal-block">
-                <p class="about-section-title"><i class="fas fa-code"></i> Tentang Website Ini</p>
+                <p class="about-section-title"><span class="section-icon-chip"><i class="fas fa-code"></i></span> Tentang Website Ini</p>
                 <div class="about-stats about-stats-2">
-                    <div class="stat-box"><span class="stat-num">v3.6</span><span class="stat-label">Versi</span></div>
-                    <div class="stat-box"><span class="stat-num">2025</span><span class="stat-label">Tahun Rilis</span></div>
+                    <div class="stat-box"><span class="stat-num">v3.7</span><span class="stat-label">Versi</span></div>
+                    <div class="stat-box"><span class="stat-num">2026</span><span class="stat-label">Tahun Rilis</span></div>
                     <div class="stat-box"><span class="stat-num" style="font-size:12px;">SRC Developer</span><span class="stat-label">Developer</span></div>
                     <div class="stat-box"><span class="stat-num" style="font-size:13px;">Liquid Glass</span><span class="stat-label">Desain</span></div>
                 </div>
@@ -1265,29 +1249,6 @@
                 });
             });
         })();
-
-        // ── Cursor-reactive ambient light + magnetic tilt on glass surfaces ──
-        if (canHover && !reduceMotion) {
-            const glow = document.getElementById('cursorGlow');
-            window.addEventListener('mousemove', (e) => {
-                glow.style.opacity = '1';
-                glow.style.transform = `translate(${e.clientX}px, ${e.clientY}px)`;
-            });
-            window.addEventListener('mouseleave', () => { glow.style.opacity = '0'; });
-
-            function attachTilt(el, max) {
-                el.addEventListener('pointermove', (e) => {
-                    const r = el.getBoundingClientRect();
-                    const px = (e.clientX - r.left) / r.width - 0.5;
-                    const py = (e.clientY - r.top) / r.height - 0.5;
-                    el.style.transform = `perspective(800px) rotateX(${(-py * max).toFixed(2)}deg) rotateY(${(px * max).toFixed(2)}deg) translateY(-3px)`;
-                });
-                el.addEventListener('pointerleave', () => { el.style.transform = ''; });
-            }
-
-            document.querySelectorAll('.card, .about-card').forEach(el => attachTilt(el, 4));
-            document.querySelectorAll('.link-item, .event-card, .about-link, .back-btn, .contact-btn').forEach(el => attachTilt(el, 3));
-        }
 
         // ── Swipe-right to go back, from About to Home (touch devices) ──
         (function () {
