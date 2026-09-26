@@ -21,9 +21,9 @@
                 radial-gradient(circle at 15% 10%, rgba(99,102,241,0.32), transparent 50%),
                 radial-gradient(circle at 85% 90%, rgba(79,70,229,0.28), transparent 50%),
                 linear-gradient(165deg, #1a1230 0%, #221b3d 45%, #2b2350 100%);
-            --glass-bg:        rgba(255,255,255,0.09);
-            --glass-bg-strong: rgba(255,255,255,0.16);
-            --glass-bg-soft:   rgba(255,255,255,0.07);
+            --glass-bg:        rgba(255,255,255,0.06);
+            --glass-bg-strong: rgba(255,255,255,0.12);
+            --glass-bg-soft:   rgba(255,255,255,0.045);
             --glass-border:    rgba(255,255,255,0.38);
             --glass-highlight: rgba(255,255,255,0.55);
             --text-primary:    #ffffff;
@@ -63,7 +63,7 @@
         }
 
         body, .card, .about-card, .link-item, .about-link, .back-btn, .top-banner,
-        .stat-box, .chip, .about-badge, .back-to-top, .event-card {
+        .stat-box, .chip, .about-badge, .back-to-top {
             transition: background-color 0.4s ease, border-color 0.4s ease, color 0.4s ease, box-shadow 0.4s ease;
         }
 
@@ -222,8 +222,8 @@
         /* ── Shared liquid glass surface ── */
         .card, .about-card {
             background: var(--glass-bg);
-            backdrop-filter: blur(10px) saturate(150%);
-            -webkit-backdrop-filter: blur(10px) saturate(150%);
+            backdrop-filter: blur(5px) saturate(140%);
+            -webkit-backdrop-filter: blur(5px) saturate(140%);
             border: 1px solid var(--glass-border);
             border-radius: 28px;
             box-shadow:
@@ -342,7 +342,7 @@
         .link-item {
             display: flex;
             align-items: center;
-            background: rgba(255,255,255,0.09);
+            background: rgba(255,255,255,0.06);
             backdrop-filter: blur(5px) saturate(140%);
             -webkit-backdrop-filter: blur(5px) saturate(140%);
             border-radius: 18px;
@@ -435,119 +435,6 @@
 
         @media (hover: hover) {
             .link-item:hover .link-arrow { color: #fff; transform: translateX(3px); }
-        }
-
-        /* ── EVENT CARD (dark electric glass) ── */
-        .event-card {
-            display: flex;
-            align-items: center;
-            background: rgba(6,0,26,0.4);
-            backdrop-filter: blur(5px) saturate(140%);
-            -webkit-backdrop-filter: blur(5px) saturate(140%);
-            border-radius: 18px;
-            padding: 14px 16px;
-            text-decoration: none;
-            color: white;
-            border: 1px solid rgba(249,115,22,0.45);
-            box-shadow: 0 6px 20px rgba(0,0,0,0.35), inset 0 1px 0 rgba(255,255,255,0.08);
-            position: relative;
-            overflow: hidden;
-            transition: box-shadow 0.25s ease, border-color 0.25s ease, transform 0.35s cubic-bezier(.22,1,.36,1);
-            will-change: transform;
-            opacity: 0;
-            animation: fadeUp 0.45s 0.36s ease forwards;
-        }
-
-        .event-card::before {
-            content: '';
-            position: absolute;
-            top: 0; left: 0; right: 0; height: 1.5px;
-            background: linear-gradient(90deg, transparent, #fb923c, transparent);
-            animation: scanPulse 2.5s ease-in-out infinite;
-        }
-        @keyframes scanPulse { 0%,100%{opacity:0.25} 50%{opacity:1} }
-
-        .event-card > .spotlayer {
-            position: absolute; inset: 0;
-            background: radial-gradient(ellipse at 80% 50%, rgba(249,115,22,0.12), transparent 60%);
-            pointer-events: none;
-        }
-
-        @media (hover: hover) {
-            .event-card:hover {
-                border-color: rgba(249,115,22,0.8);
-                box-shadow: 0 14px 32px rgba(0,0,0,0.5), 0 0 24px rgba(249,115,22,0.3);
-            }
-        }
-
-        .event-card:active { transform: scale(0.98) !important; }
-
-        .spooky {
-            position: absolute;
-            opacity: 0;
-            pointer-events: none;
-            filter: drop-shadow(0 0 5px #fb923c);
-            animation: spookyFlit 4s ease-in-out infinite;
-            will-change: opacity, transform;
-            font-size: 13px;
-        }
-        .spooky-1 { top: 5px;    right: 48px; animation-delay: 0s; }
-        .spooky-2 { top: 4px;    right: 26px; animation-delay: 0.9s; font-size: 10px; }
-        .spooky-3 { bottom: 5px; right: 38px; animation-delay: 1.8s; font-size: 11px; }
-
-        @keyframes spookyFlit {
-            0%,100%  { opacity:0; transform: translate(0,0) rotate(0deg); }
-            15%,35%  { opacity:1; transform: translate(-3px,-2px) rotate(-8deg); }
-            25%      { opacity:0.3; transform: translate(2px,-3px) rotate(6deg); }
-            45%      { opacity:0; transform: translate(0,0) rotate(0deg); }
-        }
-
-        .event-icon {
-            width: 44px; height: 44px;
-            border-radius: 14px;
-            background: rgba(249,115,22,0.16);
-            border: 1px solid rgba(249,115,22,0.35);
-            display: flex; align-items: center; justify-content: center;
-            font-size: 20px;
-            margin-right: 13px;
-            flex-shrink: 0;
-            position: relative; z-index: 1;
-            animation: iconPulse 2.5s ease-in-out infinite;
-        }
-        @keyframes iconPulse {
-            0%,100% { box-shadow: 0 0 0 0 rgba(249,115,22,0.45); }
-            50%      { box-shadow: 0 0 0 6px rgba(249,115,22,0); }
-        }
-
-        .event-text { flex:1; text-align:left; position:relative; z-index:1; }
-
-        .event-badge {
-            display: inline-block;
-            background: linear-gradient(135deg, #f97316, #fb923c);
-            color: white;
-            font-size: 9px; font-weight: 800;
-            letter-spacing: 1px; text-transform: uppercase;
-            padding: 2px 7px; border-radius: 20px;
-            margin-bottom: 4px;
-        }
-
-        .event-title {
-            font-size: 14px; font-weight: 800;
-            color: #fff;
-            text-shadow: 0 0 10px rgba(249,115,22,0.75);
-            margin-bottom: 2px;
-        }
-
-        .event-desc { font-size: 11px; color: rgba(255,167,89,0.9); }
-
-        .event-arrow {
-            font-size: 12px;
-            color: rgba(249,115,22,0.55);
-            transition: color 0.2s, transform 0.2s;
-            position: relative; z-index: 1;
-        }
-        @media (hover: hover) {
-            .event-card:hover .event-arrow { color: #fb923c; transform: translateX(3px); }
         }
 
         /* ── ABOUT LINK — a quiet pill near the footer, not a competing full-width CTA ── */
@@ -821,38 +708,6 @@
         @keyframes toastIn { from { opacity: 0; transform: translateY(10px) scale(0.9); } to { opacity: 1; transform: translateY(0) scale(1); } }
         @keyframes toastOut { to { opacity: 0; transform: translateY(-8px) scale(0.95); } }
 
-        /* ── Center notice — Halloween-orange popup for the not-yet-linked event card ── */
-        .center-notice {
-            position: fixed;
-            top: 50%; left: 50%;
-            transform: translate(-50%, -50%) scale(0.85);
-            z-index: 10001;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            max-width: 82vw;
-            background: rgba(249,115,22,0.09);
-            backdrop-filter: blur(5px) saturate(140%);
-            -webkit-backdrop-filter: blur(5px) saturate(140%);
-            border: 1px solid rgba(249,115,22,0.4);
-            border-radius: 20px;
-            padding: 16px 22px;
-            color: #fff;
-            font-size: 14px;
-            font-weight: 800;
-            text-align: left;
-            text-shadow: 0 1px 6px rgba(0,0,0,0.5);
-            box-shadow: inset 0 1px 1px rgba(255,255,255,0.35), 0 12px 30px rgba(0,0,0,0.2), 0 0 18px -6px rgba(249,115,22,0.4);
-            opacity: 0;
-            pointer-events: none;
-            transition: opacity 0.3s ease, transform 0.35s cubic-bezier(.34,1.56,.64,1);
-        }
-        .center-notice.show {
-            opacity: 1;
-            transform: translate(-50%, -50%) scale(1);
-        }
-        .center-notice i { font-size: 20px; flex-shrink: 0; }
-
         /* ── Accessibility: visible focus ring everywhere ── */
         a:focus-visible, button:focus-visible {
             outline: 2px solid var(--electric);
@@ -955,21 +810,6 @@
                     </div>
                     <i class="fas fa-chevron-right link-arrow"></i>
                 </a>
-
-                <!-- Event Card -->
-                <a href="" class="event-card" id="eventCard" target="_blank" rel="noopener">
-                    <span class="spooky spooky-1">🦇</span>
-                    <span class="spooky spooky-2">🦇</span>
-                    <span class="spooky spooky-3">🦇</span>
-                    <div class="spotlayer"></div>
-                    <div class="event-icon">🎃</div>
-                    <div class="event-text">
-                        <span class="event-badge">🎃 Upcoming Event</span>
-                        <div class="event-title">Upcoming Event</div>
-                        <div class="event-desc">Upcoming &amp; Upcoming Event</div>
-                    </div>
-                    <i class="fas fa-chevron-right event-arrow"></i>
-                </a>
             </div>
         </div>
 
@@ -1043,11 +883,6 @@
 
     <div class="toast-stack" id="toastStack" aria-live="polite"></div>
 
-    <div class="center-notice" id="centerNotice" role="status" aria-live="polite">
-        <i class="fas fa-ghost"></i>
-        <span id="centerNoticeText"></span>
-    </div>
-
     <script>
         const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
         const canHover = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
@@ -1104,25 +939,6 @@
         document.querySelectorAll('[data-toast]').forEach(el => {
             el.addEventListener('click', () => showToast(el.dataset.toast));
         });
-
-        // ── Center notice — Halloween-orange popup for the event card while it has no link yet ──
-        const centerNotice = document.getElementById('centerNotice');
-        const centerNoticeText = document.getElementById('centerNoticeText');
-        let centerNoticeTimer = null;
-        function showCenterNotice(text, duration = 2400) {
-            centerNoticeText.textContent = text;
-            centerNotice.classList.add('show');
-            clearTimeout(centerNoticeTimer);
-            centerNoticeTimer = setTimeout(() => centerNotice.classList.remove('show'), duration);
-        }
-
-        const eventCard = document.getElementById('eventCard');
-        if (eventCard && !eventCard.getAttribute('href')) {
-            eventCard.addEventListener('click', (e) => {
-                e.preventDefault();
-                showCenterNotice('Halloween Run Event Is Coming!');
-            });
-        }
 
         // ── Count-up animation for numeric stats, runs once when a stat-box enters view ──
         function countUp(el, target, suffix, duration) {
@@ -1213,7 +1029,7 @@
 
         // ── Tactile feedback: ripple + icon pop on press, for every clickable glass surface ──
         (function () {
-            const pressables = document.querySelectorAll('.link-item, .event-card, .about-link, .back-btn, .back-to-top, .contact-btn');
+            const pressables = document.querySelectorAll('.link-item, .about-link, .back-btn, .back-to-top, .contact-btn');
             pressables.forEach(el => {
                 el.addEventListener('pointerdown', (e) => {
                     playSound('tap');
