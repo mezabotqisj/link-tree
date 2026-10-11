@@ -991,7 +991,7 @@
 
         // ── Toast — quiet confirmation right before an outbound link opens ──
         const toastStack = document.getElementById('toastStack');
-        function showToast(text) {
+        function showToast(text, duration = 1500) {
             const t = document.createElement('div');
             t.className = 'toast';
             t.textContent = text;
@@ -999,10 +999,26 @@
             setTimeout(() => {
                 t.classList.add('out');
                 t.addEventListener('animationend', () => t.remove(), { once: true });
-            }, 1500);
+            }, duration);
         }
+
+        // Tampilkan toast dulu, baru pindah ke tujuan setelah jeda (supaya notifikasinya sempat terbaca)
+        const REDIRECT_DELAY = 2000;
+        let redirecting = false;
+        window.addEventListener('pageshow', () => { redirecting = false; }); // reset saat user kembali via tombol Back
+
         document.querySelectorAll('[data-toast]').forEach(el => {
-            el.addEventListener('click', () => showToast(el.dataset.toast));
+            el.addEventListener('click', (e) => {
+                // Biarkan perilaku normal untuk klik khusus (Ctrl/Cmd/Shift/klik tengah) atau link tanpa tujuan
+                const href = el.getAttribute('href');
+                if (!href || e.defaultPrevented || e.button !== 0 || e.ctrlKey || e.metaKey || e.shiftKey || e.altKey) return;
+
+                e.preventDefault();
+                if (redirecting) return;          // abaikan ketukan ganda selama menunggu
+                redirecting = true;
+                showToast(el.dataset.toast, REDIRECT_DELAY);
+                setTimeout(() => { window.location.href = href; }, REDIRECT_DELAY);
+            });
         });
 
         // ── Count-up animation for numeric stats, runs once when a stat-box enters view ──
