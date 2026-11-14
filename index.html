@@ -788,6 +788,67 @@
             .contact-btn:hover { background: rgba(255,255,255,0.16); border-color: rgba(255,255,255,0.5); }
             .back-btn:hover { background: rgba(255,255,255,0.3); }
         }
+
+        /* ── Pilihan bahasa ID / EN — liquid glass ── */
+        :root {
+            --lang-bg:            rgba(20,20,40,0.035);
+            --lang-border:        rgba(20,20,40,0.14);
+            --lang-hi:            rgba(255,255,255,0.95);
+            --lang-active-bg:     rgba(20,20,40,0.09);
+            --lang-active-border: rgba(20,20,40,0.22);
+            --lang-hover:         rgba(20,20,40,0.06);
+            --lang-shadow:        rgba(40,40,80,0.16);
+        }
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --lang-bg:            rgba(255,255,255,0.06);
+                --lang-border:        rgba(255,255,255,0.3);
+                --lang-hi:            rgba(255,255,255,0.4);
+                --lang-active-bg:     rgba(255,255,255,0.2);
+                --lang-active-border: rgba(255,255,255,0.5);
+                --lang-hover:         rgba(255,255,255,0.12);
+                --lang-shadow:        rgba(0,0,0,0.35);
+            }
+        }
+        .lang-switch {
+            position: fixed;
+            top: 12px; right: 12px;
+            z-index: 9997;
+            display: flex;
+            gap: 2px;
+            padding: 3px;
+            border-radius: 999px;
+            background: var(--lang-bg);
+            border: 1px solid var(--lang-border);
+            backdrop-filter: blur(5px) saturate(140%);
+            -webkit-backdrop-filter: blur(5px) saturate(140%);
+            box-shadow: 0 8px 20px var(--lang-shadow), inset 0 1px 1px var(--lang-hi);
+        }
+        .lang-btn {
+            position: relative;
+            overflow: hidden;
+            border: 1px solid transparent;
+            background: transparent;
+            color: var(--text-secondary);
+            font: inherit;
+            font-size: 11.5px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            padding: 5px 12px;
+            border-radius: 999px;
+            cursor: pointer;
+            transition: background 0.25s ease, border-color 0.25s ease, color 0.25s ease, box-shadow 0.25s ease, transform 0.3s cubic-bezier(.22,1,.36,1);
+        }
+        .lang-btn:active { transform: scale(0.92) !important; }
+        .lang-btn[aria-pressed="true"] {
+            color: var(--text-primary);
+            background: var(--lang-active-bg);
+            border-color: var(--lang-active-border);
+            box-shadow: inset 0 1px 1px var(--lang-hi), 0 2px 6px var(--lang-shadow);
+        }
+        @media (hover: hover) {
+            .lang-btn:not([aria-pressed="true"]):hover { background: var(--lang-hover); color: var(--text-primary); }
+        }
     </style>
 </head>
 <body>
@@ -796,6 +857,12 @@
     <div id="preloader" aria-hidden="true">
         <div class="preloader-ring"></div>
         <span class="preloader-word">source.crocs</span>
+    </div>
+
+    <!-- Pilihan bahasa -->
+    <div class="lang-switch" role="group" aria-label="Bahasa / Language">
+        <button type="button" class="lang-btn" data-lang="id" aria-pressed="true">ID</button>
+        <button type="button" class="lang-btn" data-lang="en" aria-pressed="false">EN</button>
     </div>
 
     <!-- DYNAMIC ISLAND BANNER -->
@@ -820,58 +887,58 @@
                 <span class="bio-dot"></span>
             </p>
 
-            <p class="links-eyebrow">Hubungi &amp; Ikuti Kami</p>
+            <p class="links-eyebrow" data-i18n="eyebrow">Hubungi &amp; Ikuti Kami</p>
             <div class="links-container">
-                <a href="https://wa.me/62895342072060" class="link-item tilt-glass" target="_blank" rel="noopener" data-toast="Membuka WhatsApp…">
+                <a href="https://wa.me/62895342072060" class="link-item tilt-glass" target="_blank" rel="noopener" data-toast="Membuka WhatsApp…" data-toast-en="Opening WhatsApp…">
                     <div class="link-icon"><i class="fab fa-whatsapp"></i></div>
                     <div class="link-text">
                         <div class="link-title">WhatsApp</div>
-                        <div class="link-description">Chat untuk pemesanan PRE-ORDER</div>
+                        <div class="link-description" data-i18n="descWa">Chat untuk pemesanan PRE-ORDER</div>
                     </div>
                     <i class="fas fa-chevron-right link-arrow"></i>
                 </a>
 
-                <a href="https://whatsapp.com/channel/0029VbDOc4z59PwOEsATw93m" class="link-item tilt-glass" target="_blank" rel="noopener" data-toast="Membuka Channel WhatsApp…">
+                <a href="https://whatsapp.com/channel/0029VbDOc4z59PwOEsATw93m" class="link-item tilt-glass" target="_blank" rel="noopener" data-toast="Membuka Channel WhatsApp…" data-toast-en="Opening WhatsApp Channel…">
                     <div class="link-icon"><i class="fab fa-whatsapp"></i></div>
                     <div class="link-text">
                         <div class="link-title">WhatsApp Channel</div>
-                        <div class="link-description">Follow channel untuk info &amp; update terbaru</div>
+                        <div class="link-description" data-i18n="descChannel">Follow channel untuk info &amp; update terbaru</div>
                     </div>
                     <i class="fas fa-chevron-right link-arrow"></i>
                 </a>
 
-                <a href="https://instagram.com/source.crocs_2nd" class="link-item tilt-glass" target="_blank" rel="noopener" data-toast="Membuka Instagram…">
+                <a href="https://instagram.com/source.crocs_2nd" class="link-item tilt-glass" target="_blank" rel="noopener" data-toast="Membuka Instagram…" data-toast-en="Opening Instagram…">
                     <div class="link-icon"><i class="fab fa-instagram"></i></div>
                     <div class="link-text">
                         <div class="link-title">Instagram</div>
-                        <div class="link-description">Akun Official Instagram</div>
+                        <div class="link-description" data-i18n="descIg">Akun Official Instagram</div>
                     </div>
                     <i class="fas fa-chevron-right link-arrow"></i>
                 </a>
 
-                <a href="https://tiktok.com/@source.crocs" class="link-item tilt-glass" target="_blank" rel="noopener" data-toast="Membuka TikTok…">
+                <a href="https://tiktok.com/@source.crocs" class="link-item tilt-glass" target="_blank" rel="noopener" data-toast="Membuka TikTok…" data-toast-en="Opening TikTok…">
                     <div class="link-icon"><i class="fab fa-tiktok"></i></div>
                     <div class="link-text">
                         <div class="link-title">TikTok</div>
-                        <div class="link-description">Akun Official TikTok</div>
+                        <div class="link-description" data-i18n="descTt">Akun Official TikTok</div>
                     </div>
                     <i class="fas fa-chevron-right link-arrow"></i>
                 </a>
 
-                <a href="https://tiktok.com/@source.crocs04" class="link-item tilt-glass" target="_blank" rel="noopener" data-toast="Membuka TikTok kedua…">
+                <a href="https://tiktok.com/@source.crocs04" class="link-item tilt-glass" target="_blank" rel="noopener" data-toast="Membuka TikTok kedua…" data-toast-en="Opening second TikTok…">
                     <div class="link-icon"><i class="fab fa-tiktok"></i></div>
                     <div class="link-text">
                         <div class="link-title">Second TikTok</div>
-                        <div class="link-description">Akun Second Official TikTok</div>
+                        <div class="link-description" data-i18n="descTt2">Akun Second Official TikTok</div>
                     </div>
                     <i class="fas fa-chevron-right link-arrow"></i>
                 </a>
 
-                <a href="https://shopee.co.id/source.crocs" class="link-item tilt-glass" target="_blank" rel="noopener" data-toast="Membuka Shopee…">
+                <a href="https://shopee.co.id/source.crocs" class="link-item tilt-glass" target="_blank" rel="noopener" data-toast="Membuka Shopee…" data-toast-en="Opening Shopee…">
                     <div class="link-icon"><i class="fas fa-shopping-bag"></i></div>
                     <div class="link-text">
                         <div class="link-title">Shopee</div>
-                        <div class="link-description">Akun Official Shopee</div>
+                        <div class="link-description" data-i18n="descShopee">Akun Official Shopee</div>
                     </div>
                     <i class="fas fa-chevron-right link-arrow"></i>
                 </a>
@@ -880,10 +947,10 @@
 
         <div class="footer">
             <button class="about-link tilt-glass" onclick="showAbout()">
-                <i class="fas fa-info-circle"></i> Tentang Link-Tree Ini
+                <i class="fas fa-info-circle"></i> <span data-i18n="aboutLink">Tentang Link-Tree Ini</span>
             </button>
-            <p>© 2026 Source Crocs · Dibuat dengan <i class="fas fa-heart" style="color:#f87171;"></i> oleh SRC Developer</p>
-            <p style="opacity:0.55; font-size:11px; margin-top:3px;">Terakhir diperbarui: <span id="currentDate"></span></p>
+            <p data-i18n-html="madeBy">© 2026 Source Crocs · Dibuat dengan <i class="fas fa-heart" style="color:#f87171;"></i> oleh SRC Developer</p>
+            <p style="opacity:0.55; font-size:11px; margin-top:3px;"><span data-i18n="updated">Terakhir diperbarui:</span> <span id="currentDate"></span></p>
         </div>
     </div>
 
@@ -898,28 +965,28 @@
 
             <hr class="about-divider">
             <div class="reveal-block">
-                <p class="about-section-title"><span class="section-icon-chip"><i class="fas fa-store"></i></span> Tentang Kami</p>
-                <p class="about-text">Source Crocs adalah toko yang menyediakan produk Crocs Original Reject yang tidak lolos Quality Control dengan harga terjangkau. Beroperasi secara online melalui sistem Pre-Order untuk memastikan setiap produk original dan berkualitas tinggi.</p>
+                <p class="about-section-title"><span class="section-icon-chip"><i class="fas fa-store"></i></span> <span data-i18n="secAbout">Tentang Kami</span></p>
+                <p class="about-text" data-i18n="aboutText">Source Crocs adalah toko yang menyediakan produk Crocs Original Reject yang tidak lolos Quality Control dengan harga terjangkau. Beroperasi secara online melalui sistem Pre-Order untuk memastikan setiap produk original dan berkualitas tinggi.</p>
             </div>
 
             <hr class="about-divider">
             <div class="reveal-block">
-                <p class="about-section-title"><span class="section-icon-chip"><i class="fas fa-trophy"></i></span> Ke-Unggulan Kami</p>
+                <p class="about-section-title"><span class="section-icon-chip"><i class="fas fa-trophy"></i></span> <span data-i18n="secStrength">Ke-Unggulan Kami</span></p>
                 <div class="about-stats">
-                    <div class="stat-box"><i class="fas fa-box-open stat-icon"></i><span class="stat-num" data-count="300" data-suffix="+">0+</span><span class="stat-label">Pesanan</span></div>
-                    <div class="stat-box"><i class="fas fa-bolt stat-icon"></i><span class="stat-num">10-20 Mnt</span><span class="stat-label">Balas Chat</span></div>
+                    <div class="stat-box"><i class="fas fa-box-open stat-icon"></i><span class="stat-num" data-count="300" data-suffix="+">0+</span><span class="stat-label" data-i18n="statOrders">Pesanan</span></div>
+                    <div class="stat-box"><i class="fas fa-bolt stat-icon"></i><span class="stat-num" data-i18n="statRespTime">10-20 Mnt</span><span class="stat-label" data-i18n="statResp">Balas Chat</span></div>
                     <div class="stat-box"><i class="fas fa-circle-check stat-icon"></i><span class="stat-num" data-count="100" data-suffix="%">0%</span><span class="stat-label">Authentic</span></div>
                 </div>
             </div>
 
             <hr class="about-divider">
             <div class="reveal-block">
-                <p class="about-section-title"><span class="section-icon-chip"><i class="fas fa-headset"></i></span> Complain?</p>
+                <p class="about-section-title"><span class="section-icon-chip"><i class="fas fa-headset"></i></span> <span data-i18n="secComplain">Complain?</span></p>
                 <div class="complain-actions">
-                    <a href="https://wa.me/62895342072060" class="contact-btn tilt-glass" target="_blank" rel="noopener" data-toast="Membuka WhatsApp…">
+                    <a href="https://wa.me/62895342072060" class="contact-btn tilt-glass" target="_blank" rel="noopener" data-toast="Membuka WhatsApp…" data-toast-en="Opening WhatsApp…">
                         <i class="fab fa-whatsapp"></i> WhatsApp
                     </a>
-                    <a href="mailto:customerhelpsourcecrocs@gmail.com" class="contact-btn tilt-glass" data-toast="Membuka Email…">
+                    <a href="mailto:customerhelpsourcecrocs@gmail.com" class="contact-btn tilt-glass" data-toast="Membuka Email…" data-toast-en="Opening Email…">
                         <i class="fas fa-envelope"></i> Email
                     </a>
                 </div>
@@ -927,22 +994,22 @@
 
             <hr class="about-divider">
             <div class="reveal-block">
-                <p class="about-section-title"><span class="section-icon-chip"><i class="fas fa-code"></i></span> Tentang Website Ini</p>
+                <p class="about-section-title"><span class="section-icon-chip"><i class="fas fa-code"></i></span> <span data-i18n="secSite">Tentang Website Ini</span></p>
                 <div class="about-stats about-stats-2">
-                    <div class="stat-box"><span class="stat-num">v3.7</span><span class="stat-label">Versi</span></div>
-                    <div class="stat-box"><span class="stat-num">2026</span><span class="stat-label">Tahun Rilis</span></div>
+                    <div class="stat-box"><span class="stat-num">v3.7</span><span class="stat-label" data-i18n="statVersion">Versi</span></div>
+                    <div class="stat-box"><span class="stat-num">2026</span><span class="stat-label" data-i18n="statYear">Tahun Rilis</span></div>
                     <div class="stat-box"><span class="stat-num" style="font-size:12px;">SRC Developer</span><span class="stat-label">Developer</span></div>
-                    <div class="stat-box"><span class="stat-num" style="font-size:13px;">Liquid Glass</span><span class="stat-label">Desain</span></div>
+                    <div class="stat-box"><span class="stat-num" style="font-size:13px;">Liquid Glass</span><span class="stat-label" data-i18n="statDesign">Desain</span></div>
                 </div>
             </div>
 
             <button class="back-btn tilt-glass" onclick="showHome()">
-                <i class="fas fa-arrow-left"></i> Kembali ke Halaman Utama
+                <i class="fas fa-arrow-left"></i> <span data-i18n="backHome">Kembali ke Halaman Utama</span>
             </button>
         </div>
     </div>
 
-    <button class="back-to-top" id="backToTop" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="Kembali ke atas">
+    <button class="back-to-top" id="backToTop" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="Kembali ke atas" data-i18n-aria="toTop">
         <i class="fas fa-chevron-up"></i>
     </button>
 
@@ -951,6 +1018,7 @@
     <script>
         const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
         const canHover = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+        let currentLang = 'id';
 
         // ── BANNER CONFIG ──
         const BANNER_MESSAGES = [
@@ -973,9 +1041,65 @@
         fixPad();
         window.addEventListener('resize', fixPad);
 
-        // ── Tanggal ──
-        document.getElementById('currentDate').textContent =
-            new Date().toLocaleDateString('id-ID', { day:'numeric', month:'long', year:'numeric' });
+        // ── Bahasa (ID / EN) ──
+        // Teks Indonesia = teks asli di HTML; terjemahan Inggris ada di kamus ini.
+        const EN = {
+            eyebrow:      'Contact & Follow Us',
+            descWa:       'Chat to place a PRE-ORDER',
+            descChannel:  'Follow the channel for the latest info & updates',
+            descIg:       'Official Instagram account',
+            descTt:       'Official TikTok account',
+            descTt2:      'Second official TikTok account',
+            descShopee:   'Official Shopee account',
+            aboutLink:    'About This Link-Tree',
+            updated:      'Last updated:',
+            secAbout:     'About Us',
+            secStrength:  'Our Strengths',
+            secComplain:  'Complaints?',
+            secSite:      'About This Website',
+            aboutText:    'Source Crocs is a store offering original Crocs reject products that did not pass Quality Control, at affordable prices. We operate online through a Pre-Order system to ensure every product is original and of high quality.',
+            statOrders:   'Orders',
+            statRespTime: '10-20 Min',
+            statResp:     'Chat Reply',
+            statVersion:  'Version',
+            statYear:     'Release Year',
+            statDesign:   'Design',
+            backHome:     'Back to Home',
+            toTop:        'Back to top'
+        };
+        const EN_HTML = {
+            madeBy: '© 2026 Source Crocs · Made with <i class="fas fa-heart" style="color:#f87171;"></i> by SRC Developer'
+        };
+
+        // Simpan teks asli (Indonesia) satu kali, lalu bisa dipulihkan kapan saja
+        const ID = {}, ID_HTML = {};
+        document.querySelectorAll('[data-i18n]').forEach(el => { ID[el.dataset.i18n] = el.textContent; });
+        document.querySelectorAll('[data-i18n-html]').forEach(el => { ID_HTML[el.dataset.i18nHtml] = el.innerHTML; });
+        document.querySelectorAll('[data-i18n-aria]').forEach(el => { ID[el.dataset.i18nAria] = el.getAttribute('aria-label'); });
+
+        function setDate() {
+            document.getElementById('currentDate').textContent =
+                new Date().toLocaleDateString(currentLang === 'en' ? 'en-GB' : 'id-ID', { day:'numeric', month:'long', year:'numeric' });
+        }
+
+        function applyLang(lang) {
+            currentLang = lang === 'en' ? 'en' : 'id';
+            const dict = currentLang === 'en' ? EN : ID;
+            const htmlDict = currentLang === 'en' ? EN_HTML : ID_HTML;
+            document.documentElement.lang = currentLang;
+            document.querySelectorAll('[data-i18n]').forEach(el => { el.textContent = dict[el.dataset.i18n]; });
+            document.querySelectorAll('[data-i18n-html]').forEach(el => { el.innerHTML = htmlDict[el.dataset.i18nHtml]; });
+            document.querySelectorAll('[data-i18n-aria]').forEach(el => { el.setAttribute('aria-label', dict[el.dataset.i18nAria]); });
+            document.querySelectorAll('.lang-btn').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.lang === currentLang)));
+            setDate();
+            try { localStorage.setItem('lang', currentLang); } catch (e) {}
+        }
+
+        document.querySelectorAll('.lang-btn').forEach(b => b.addEventListener('click', () => applyLang(b.dataset.lang)));
+
+        let savedLang = 'id';
+        try { savedLang = localStorage.getItem('lang') || 'id'; } catch (e) {}
+        applyLang(savedLang);
 
         // ── Skeleton shimmer → fade in once the profile images actually load ──
         function unveilImage(img, wrap) {
@@ -1016,7 +1140,8 @@
                 e.preventDefault();
                 if (redirecting) return;          // abaikan ketukan ganda selama menunggu
                 redirecting = true;
-                showToast(el.dataset.toast, REDIRECT_DELAY);
+                const msg = (currentLang === 'en' && el.dataset.toastEn) ? el.dataset.toastEn : el.dataset.toast;
+                showToast(msg, REDIRECT_DELAY);
                 setTimeout(() => { window.location.href = href; }, REDIRECT_DELAY);
             });
         });
@@ -1110,7 +1235,7 @@
 
         // ── Tactile feedback: ripple + icon pop on press, for every clickable glass surface ──
         (function () {
-            const pressables = document.querySelectorAll('.link-item, .about-link, .back-btn, .back-to-top, .contact-btn');
+            const pressables = document.querySelectorAll('.link-item, .about-link, .back-btn, .back-to-top, .contact-btn, .lang-btn');
             pressables.forEach(el => {
                 el.addEventListener('pointerdown', (e) => {
                     playSound('tap');
