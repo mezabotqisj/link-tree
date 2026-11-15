@@ -1095,7 +1095,17 @@
             try { localStorage.setItem('lang', currentLang); } catch (e) {}
         }
 
-        document.querySelectorAll('.lang-btn').forEach(b => b.addEventListener('click', () => applyLang(b.dataset.lang)));
+        const LANG_TOAST = { id: 'Mengubah bahasa ke Indonesia…', en: 'Changing language to English…' };
+        const LANG_DELAY = 1000;                   // jeda (ms) antara notifikasi muncul dan bahasa benar-benar berganti
+        let langPending = false;
+        document.querySelectorAll('.lang-btn').forEach(b => b.addEventListener('click', () => {
+            const next = b.dataset.lang;
+            if (langPending || next === currentLang) return;   // abaikan ketukan ganda / bahasa yang sama
+            langPending = true;
+            document.querySelectorAll('.lang-btn').forEach(x => x.setAttribute('aria-pressed', String(x.dataset.lang === next)));
+            showToast(LANG_TOAST[next], LANG_DELAY);            // notifikasi muncul dulu...
+            setTimeout(() => { applyLang(next); langPending = false; }, LANG_DELAY); // ...baru bahasa berganti
+        }));
 
         let savedLang = 'id';
         try { savedLang = localStorage.getItem('lang') || 'id'; } catch (e) {}
